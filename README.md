@@ -1,9 +1,22 @@
-![Zola Version](https://img.shields.io/badge/Zola-0.22.1-blue?logo=zola)
-# Portfolio
+# Klixa portfolio
 
+Zola static site — [architecture](docs/architecture.md).
 
+## Commands
 
-This is going to be my personal portfolio with entirely with. 
+```powershell
+zola serve          # http://127.0.0.1:1111
+zola build
+zola check
+npm run lint        # optional: SCSS + Markdown
+```
 
+## Layout
 
+- `content/` — Markdown pages
+- `data/` — nav + skills YAML
+- `templates/` — Tera HTML + macros
+- `sass/` — SCSS (compiled to `/main.css`)
+- `static/` — images, JS, favicon
 
+Deployed via GitHub Actions to GitHub Pages.

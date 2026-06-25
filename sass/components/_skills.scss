@@ -1,0 +1,64 @@
+@use "../common/variables" as *;
+
+.skills__inner {
+    display: grid;
+    gap: $spacing-xl;
+
+    @media (min-width: 768px) {
+        grid-template-columns: 1.2fr 1fr;
+    }
+}
+
+.skills__bars {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.skills__bar + .skills__bar {
+    margin-top: $spacing-lg;
+}
+
+.skills__bar-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $spacing-xs;
+    font-size: 0.875rem;
+}
+
+.skills__bar-track {
+    height: 0.5rem;
+    border-radius: 999px;
+    background: rgba($color-text, 0.1);
+    overflow: hidden;
+}
+
+.skills__bar-fill {
+    display: block;
+    width: calc(var(--level) * 1%);
+    height: 100%;
+    border-radius: inherit;
+    background: $color-accent;
+}
+
+.skills__also-title {
+    margin: 0 0 $spacing-md;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.skills__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.skills__tag {
+    padding: $spacing-xs $spacing-sm;
+    border: 1px solid rgba($color-text, 0.15);
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}

@@ -1,0 +1,13 @@
+bars:
+  - name: Backend
+    level: 85
+  - name: Frontend
+    level: 75
+  - name: DevOps
+    level: 70
+
+also_comfortable_with:
+  - Rust
+  - TypeScript
+  - Docker
+  - PostgreSQL

@@ -1,0 +1,65 @@
+@use "../common/variables" as *;
+
+.contact__panel {
+    padding: $spacing-xl;
+    border-radius: 0.5rem;
+    background: $color-panel;
+    color: #fff;
+}
+
+.contact__badge {
+    display: inline-block;
+    margin: 0 0 $spacing-md;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba($color-accent, 0.25);
+    color: lighten($color-accent, 20%);
+}
+
+.contact__title {
+    margin: 0 0 $spacing-sm;
+    font-size: 1.75rem;
+}
+
+.contact__lead {
+    margin: 0 0 $spacing-xl;
+    max-width: 36rem;
+    color: rgba(#fff, 0.8);
+}
+
+.contact__form {
+    display: grid;
+    gap: $spacing-md;
+    max-width: 32rem;
+}
+
+.contact__label {
+    display: block;
+    margin-bottom: $spacing-xs;
+    font-size: 0.875rem;
+}
+
+.contact__input {
+    width: 100%;
+    padding: $spacing-sm $spacing-md;
+    border: 1px solid rgba(#fff, 0.2);
+    border-radius: 0.25rem;
+    font: inherit;
+    color: #fff;
+    background: rgba(#fff, 0.06);
+
+    &::placeholder {
+        color: rgba(#fff, 0.45);
+    }
+}
+
+.contact__textarea {
+    resize: vertical;
+    min-height: 6rem;
+}
+
+.contact__submit {
+    justify-self: start;
+}

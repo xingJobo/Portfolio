@@ -1,0 +1,20 @@
+<section id="hero" class="section hero">
+    <div class="container hero__inner">
+        <div class="hero__content">
+            {% if section.extra.subtitle %}
+            <p class="hero__subtitle">{{ section.extra.subtitle }}</p>
+            {% endif %}
+            <h1 class="hero__title">{{ section.extra.headline | default(value=section.title) }}</h1>
+            {% if section.extra.lead %}
+            <p class="hero__lead">{{ section.extra.lead }}</p>
+            {% endif %}
+            <div class="hero__actions">
+                <a class="btn btn--primary" href="#work">{{ section.extra.cta_primary | default(value="View work") }}</a>
+                <a class="btn btn--ghost" href="#contact">{{ section.extra.cta_secondary | default(value="Get in touch") }}</a>
+            </div>
+        </div>
+        <div class="hero__visual" aria-hidden="true">
+            <div class="hero__visual-placeholder"></div>
+        </div>
+    </div>
+</section>

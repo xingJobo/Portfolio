@@ -1,0 +1,46 @@
+@use "../common/variables" as *;
+
+.project-card {
+    border: 1px solid rgba($color-text, 0.12);
+    border-radius: 0.5rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        border-color: rgba($color-accent, 0.5);
+        box-shadow: 0 0.5rem 1.5rem rgba($color-text, 0.08);
+    }
+}
+
+.project-card__link {
+    display: block;
+    padding: $spacing-lg;
+    color: inherit;
+    text-decoration: none;
+}
+
+.project-card__title {
+    margin: 0 0 $spacing-sm;
+    font-size: 1.25rem;
+}
+
+.project-card__summary {
+    margin: 0 0 $spacing-md;
+    color: lighten($color-text, 15%);
+}
+
+.project-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-xs;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.project-card__tag {
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    background: rgba($color-accent, 0.12);
+    color: darken($color-accent, 10%);
+}

@@ -1,0 +1,15 @@
+<article class="project-card">
+    <a class="project-card__link" href="{{ page.permalink }}">
+        <h3 class="project-card__title">{{ page.title }}</h3>
+        {% if page.description %}
+        <p class="project-card__summary">{{ page.description }}</p>
+        {% endif %}
+        {% if page.extra.tags %}
+        <ul class="project-card__tags">
+            {% for tag in page.extra.tags %}
+            <li class="project-card__tag">{{ tag }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </a>
+</article>

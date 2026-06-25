@@ -1,0 +1,36 @@
+@use "../common/variables" as *;
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-sm $spacing-lg;
+    border: 2px solid transparent;
+    border-radius: 0.25rem;
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn--primary {
+    background: $color-accent;
+    color: #fff;
+
+    &:hover,
+    &:focus-visible {
+        filter: brightness(1.05);
+    }
+}
+
+.btn--ghost {
+    border-color: rgba($color-text, 0.2);
+    color: $color-text;
+    background: transparent;
+
+    &:hover,
+    &:focus-visible {
+        border-color: $color-accent;
+        color: $color-accent;
+    }
+}

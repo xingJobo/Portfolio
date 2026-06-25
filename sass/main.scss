@@ -1,0 +1,13 @@
+// Klixa portfolio — single CSS entry (compiled to /main.css by Zola)
+
+@use "common/variables";
+@use "common/fonts";
+@use "common/global";
+@use "layout/header";
+@use "layout/sidebar";
+@use "layout/footer";
+@use "layout/pages";
+@use "components/buttons";
+@use "components/project-card";
+@use "components/skills";
+@use "components/contact";

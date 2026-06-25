@@ -1,0 +1,36 @@
+{% set skills = load_data(path="data/skills.yaml") %}
+<section id="skills" class="section skills">
+    <div class="container skills__inner">
+        <div class="skills__primary">
+            <h2 class="section__title">Core stack</h2>
+            <ul class="skills__bars">
+                {% for skill in skills.bars %}
+                <li class="skills__bar">
+                    <div class="skills__bar-header">
+                        <span class="skills__bar-name">{{ skill.name }}</span>
+                        <span class="skills__bar-value">{{ skill.level }}%</span>
+                    </div>
+                    <div
+                        class="skills__bar-track"
+                        role="progressbar"
+                        aria-valuenow="{{ skill.level }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-label="{{ skill.name }}: {{ skill.level }} percent"
+                    >
+                        <span class="skills__bar-fill" style="--level: {{ skill.level }}"></span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="skills__secondary">
+            <h3 class="skills__also-title">Also comfortable with</h3>
+            <ul class="skills__tags">
+                {% for tag in skills.also_comfortable_with %}
+                <li class="skills__tag">{{ tag }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>

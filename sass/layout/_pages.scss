@@ -1,0 +1,83 @@
+@use "../common/variables" as *;
+
+.hero {
+    padding-block: 5rem 4rem;
+    background: linear-gradient(135deg, rgba($color-accent, 0.08), transparent 60%);
+}
+
+.hero__inner {
+    display: grid;
+    gap: $spacing-xl;
+    align-items: center;
+
+    @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.hero__subtitle {
+    margin: 0 0 $spacing-sm;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $color-accent;
+}
+
+.hero__title {
+    margin: 0 0 $spacing-md;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.15;
+}
+
+.hero__lead {
+    margin: 0 0 $spacing-xl;
+    max-width: 36rem;
+    color: lighten($color-text, 15%);
+}
+
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+}
+
+.hero__visual-placeholder {
+    aspect-ratio: 4 / 3;
+    border-radius: 0.5rem;
+    background: linear-gradient(145deg, rgba($color-panel, 0.15), rgba($color-accent, 0.2));
+    border: 1px solid rgba($color-text, 0.08);
+}
+
+.work__grid {
+    display: grid;
+    gap: $spacing-lg;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.process__steps {
+    display: grid;
+    gap: $spacing-lg;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.process__step-label {
+    display: block;
+    margin-bottom: $spacing-xs;
+    font-weight: 600;
+    color: $color-accent;
+}
+
+.process__step-text {
+    margin: 0;
+    color: lighten($color-text, 15%);
+}

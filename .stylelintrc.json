@@ -1,0 +1,7 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "ignoreFiles": ["public/**", "node_modules/**"],
+  "rules": {
+    "no-empty-source": null
+  }
+}

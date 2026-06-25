@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container section">
+    <h1 class="section__title">{{ section.title }}</h1>
+    {% if section.description %}
+    <p class="section__lead">{{ section.description }}</p>
+    {% endif %}
+    <div class="work__grid">
+        {% for page in section.pages %}
+        {% include "macros/project-card.html" %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

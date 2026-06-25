@@ -1,0 +1,16 @@
+{% set projects = get_section(path="projects/_index.md") %}
+<section id="work" class="section work">
+    <div class="container">
+        <h2 class="section__title">Selected work</h2>
+        <p class="section__lead">Recent projects and case studies.</p>
+        {% if projects.pages %}
+        <div class="work__grid">
+            {% for page in projects.pages %}
+            {% include "macros/project-card.html" %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="section__empty">Project case studies coming soon.</p>
+        {% endif %}
+    </div>
+</section>

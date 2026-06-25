@@ -1,0 +1,13 @@
+{% set nav = load_data(path="data/nav.yaml") %}
+<nav class="scroll-nav" aria-label="On this page">
+    <ol class="scroll-nav__list">
+        {% for item in nav.sections %}
+        <li class="scroll-nav__item">
+            <a class="scroll-nav__link" href="#{{ item.id }}" title="{{ item.label }}">
+                <span class="scroll-nav__tick" aria-hidden="true"></span>
+                <span class="scroll-nav__label">{{ item.short_label }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ol>
+</nav>

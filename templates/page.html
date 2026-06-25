@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="container section">
+    <header>
+        <h1 class="section__title">{{ page.title }}</h1>
+        {% if page.description %}
+        <p class="section__lead">{{ page.description }}</p>
+        {% endif %}
+        {% if page.extra.tags %}
+        <ul class="project-card__tags">
+            {% for tag in page.extra.tags %}
+            <li class="project-card__tag">{{ tag }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </header>
+    <div class="page__content">
+        {{ page.content | safe }}
+    </div>
+    <p><a class="btn btn--ghost" href="{{ get_url(path='/') }}#work">← Back to work</a></p>
+</article>
+{% endblock content %}

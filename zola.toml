@@ -1,5 +1,8 @@
 # The URL the site will be built for
-base_url = "https://xingJobo.github.io/portfolio/"
+base_url = "https://xingJobo.github.io/Portfolio/"
+
+title = "xingJobo"
+description = "Portfolio"
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
