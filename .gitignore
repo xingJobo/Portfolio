@@ -1,7 +1,11 @@
-# This is the folder destination for the build output of the Zola site.
+# Zola build output
 public/
 
-# This is the folder destination for the documentation of the Zola site.
-docs/
+# Node (lint tooling only)
+node_modules/
 
-
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
