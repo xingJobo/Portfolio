@@ -1,10 +1,7 @@
 @use "../common/variables" as *;
 
 .contact__panel {
-    padding: $spacing-xl;
-    border-radius: 0.5rem;
-    background: $color-panel;
-    color: #fff;
+    max-width: 32rem;
 }
 
 .contact__badge {
@@ -14,8 +11,8 @@
     border-radius: 999px;
     font-size: 0.75rem;
     font-weight: 600;
-    background: rgba($color-accent, 0.25);
-    color: lighten($color-accent, 20%);
+    background: rgba($color-accent, 0.15);
+    color: darken($color-accent, 8%);
 }
 
 .contact__title {
@@ -26,13 +23,12 @@
 .contact__lead {
     margin: 0 0 $spacing-xl;
     max-width: 36rem;
-    color: rgba(#fff, 0.8);
+    color: lighten($color-text, 15%);
 }
 
 .contact__form {
     display: grid;
     gap: $spacing-md;
-    max-width: 32rem;
 }
 
 .contact__label {
@@ -44,14 +40,14 @@
 .contact__input {
     width: 100%;
     padding: $spacing-sm $spacing-md;
-    border: 1px solid rgba(#fff, 0.2);
+    border: 1px solid rgba($color-text, 0.18);
     border-radius: 0.25rem;
     font: inherit;
-    color: #fff;
-    background: rgba(#fff, 0.06);
+    color: $color-text;
+    background: rgba(#fff, 0.75);
 
     &::placeholder {
-        color: rgba(#fff, 0.45);
+        color: lighten($color-text, 35%);
     }
 }
 
