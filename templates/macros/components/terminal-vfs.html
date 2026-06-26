@@ -1,0 +1,37 @@
+{% set experience = load_data(path="data/experience.yaml") %}
+{% set skills = load_data(path="data/skills.yaml") %}
+{% set projects = get_section(path="projects/_index.md") %}
+{% set easter_eggs = load_data(path="data/terminal/easter-eggs.yaml") %}
+
+{% set readme_content = "# xingJobo portfolio\n\nWelcome. Explore this site with familiar shell commands.\n\n  ls        list files\n  ls -a     include hidden dotfiles\n  cat FILE  read a file (e.g. cat about.md)\n  help      command list\n  clear     clear the screen\n\nTry: ls" %}
+
+{% set about_content = "# About\n\n**" ~ section.extra.subtitle ~ "**\n\n" ~ section.extra.headline ~ "\n\n" ~ section.extra.lead ~ "\n\n" ~ section.extra.about_lead %}
+
+{% set_global experience_content = experience.intro ~ "\n" %}
+{% for entry in experience.entries %}
+{% set_global experience_content = experience_content ~ "\n## " ~ entry.role ~ " — " ~ entry.org ~ "\n_" ~ entry.period ~ "_\n" %}
+{% for highlight in entry.highlights %}
+{% set_global experience_content = experience_content ~ "\n- " ~ highlight %}
+{% endfor %}
+{% endfor %}
+
+{% set_global skills_content = "# Core stack\n\n" %}
+{% for skill in skills.bars %}
+{% set_global skills_content = skills_content ~ skill.name ~ ": " ~ skill.level ~ "%\n" %}
+{% endfor %}
+{% set_global skills_content = skills_content ~ "\n# Also comfortable with\n\n" %}
+{% for tag in skills.also_comfortable_with %}
+{% set_global skills_content = skills_content ~ "- " ~ tag ~ "\n" %}
+{% endfor %}
+
+{% set_global projects_content = "# Selected projects\n\n" %}
+{% for page in projects.pages %}
+{% set_global projects_content = projects_content ~ "## " ~ page.title ~ "\n" ~ page.description ~ "\n" %}
+{% if page.extra.tags %}
+{% set tag_list = page.extra.tags | join(sep=", ") %}
+{% set_global projects_content = projects_content ~ "Stack: " ~ tag_list ~ "\n" %}
+{% endif %}
+{% set_global projects_content = projects_content ~ "\n" %}
+{% endfor %}
+
+<script type="application/json" id="terminal-fs">{"cwd":"/home/xingjobo","files":{"README.md":{"hidden":false,"content":{{ readme_content | json_encode | safe }}},"about.md":{"hidden":false,"content":{{ about_content | json_encode | safe }}},"experience.md":{"hidden":false,"content":{{ experience_content | json_encode | safe }}},"skills.md":{"hidden":false,"content":{{ skills_content | json_encode | safe }}},"projects.md":{"hidden":false,"content":{{ projects_content | json_encode | safe }}}{% for egg in easter_eggs.files %},"{{ egg.name }}":{"hidden":true,"content":{{ egg.content | json_encode | safe }}}{% endfor %}}}</script>
