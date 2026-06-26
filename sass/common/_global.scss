@@ -50,6 +50,10 @@ html {
     }
 }
 
+[x-cloak] {
+    display: none !important;
+}
+
 .section__title {
     margin: 0 0 $spacing-md;
     font-size: 1.75rem;

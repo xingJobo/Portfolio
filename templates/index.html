@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block sidebar %}
-<aside class="sidebar" aria-label="Section navigation">
-    <header class="sidebar__header">
-        <p class="sidebar__brand">{{ config.title }}</p>
-        <p class="sidebar__meta">portfolio</p>
-    </header>
+<aside
+    class="sidebar"
+    aria-label="Section navigation"
+    x-data="{ navOpen: false }"
+    @keydown.escape.window="navOpen = false"
+>
     {% include "macros/shell/scroll-nav.html" %}
 </aside>
 {% endblock sidebar %}
@@ -18,3 +19,7 @@
 {% include "macros/sections/skills.html" %}
 {% include "macros/sections/contact.html" %}
 {% endblock content %}
+
+{% block scripts %}
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+{% endblock scripts %}

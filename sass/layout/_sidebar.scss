@@ -5,20 +5,41 @@
     transform: rotate(180deg);
 }
 
+// Invisible in layout when closed — drawer is position: fixed
 .sidebar {
-    position: sticky;
+    flex-shrink: 0;
+    width: 0;
+    overflow: visible;
+}
+
+.scroll-nav-shell {
+    position: relative;
+    z-index: 30;
+}
+
+.scroll-nav-drawer {
+    position: fixed;
     top: 0;
-    align-self: flex-start;
+    left: 0;
+    z-index: 20;
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-shrink: 0;
     width: $sidebar-width;
-    max-height: 100vh;
+    height: 100vh;
     padding: $spacing-xl $spacing-sm;
     overflow-y: auto;
     background: #fff;
     border-right: 1px solid rgba($color-text, 0.1);
+    box-shadow: 0.25rem 0 1.5rem rgba($color-text, 0.08);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    pointer-events: none;
+
+    &--open {
+        transform: translateX(0);
+        pointer-events: auto;
+    }
 }
 
 .sidebar__header {
@@ -26,7 +47,7 @@
     flex-direction: column;
     align-items: center;
     gap: $spacing-lg;
-    margin-bottom: $spacing-xl;
+    margin-bottom: $spacing-lg;
     cursor: default;
     user-select: none;
 }
@@ -49,6 +70,57 @@
     @include vertical-text;
 }
 
+.scroll-nav__toggle {
+    position: fixed;
+    top: 50%;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 2px solid $color-accent;
+    border-radius: 999px;
+    background: #fff;
+    color: $color-accent;
+    cursor: pointer;
+    box-shadow: 0 0.25rem 0.75rem rgba($color-text, 0.18);
+    transform: translate(-50%, -50%);
+    transition:
+        left 0.25s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+        border-color: darken($color-accent, 8%);
+        color: darken($color-accent, 8%);
+        background: rgba($color-accent, 0.12);
+        box-shadow: 0 0.35rem 1rem rgba($color-text, 0.22);
+    }
+
+    &--closed {
+        left: 0;
+    }
+
+    &--open {
+        left: $sidebar-width;
+
+        .scroll-nav__toggle-icon {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.scroll-nav__toggle-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    transition: transform 0.25s ease;
+}
+
 .scroll-nav {
     width: 100%;
 }
@@ -67,7 +139,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: $spacing-xs;
     padding: $spacing-xs 0;
     color: lighten($color-text, 20%);
     text-decoration: none;
@@ -77,20 +148,7 @@
     &:hover,
     &:focus-visible {
         color: $color-text;
-
-        .scroll-nav__tick {
-            width: 1.5rem;
-            background: $color-accent;
-        }
     }
-}
-
-.scroll-nav__tick {
-    display: block;
-    width: 1rem;
-    height: 2px;
-    background: rgba($color-text, 0.35);
-    transition: width 0.2s ease, background 0.2s ease;
 }
 
 .scroll-nav__label {
@@ -100,8 +158,20 @@
     @include vertical-text;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .scroll-nav-drawer,
+    .scroll-nav__toggle,
+    .scroll-nav__toggle-icon {
+        transition: none;
+    }
+}
+
 @media (max-width: 768px) {
-    .sidebar {
-        display: none;
+    .scroll-nav-drawer {
+        width: min($sidebar-width, 80vw);
+    }
+
+    .scroll-nav__toggle--open {
+        left: min($sidebar-width, 80vw);
     }
 }
