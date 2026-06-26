@@ -1,21 +1,23 @@
 # Work history — rendered to experience.md in the hero terminal (see docs/architecture.md).
-# Replace placeholders with your real roles before launch.
+# Replace with your real roles before launch.
 
 intro: |
-  Software developer focused on maintainable backends, clear APIs, and tooling
-  that teams can run without babysitting.
+  Software developer building backends, integrations, and internal tooling.
+  I care about readable code, honest estimates, and systems that are boring to operate.
 
 entries:
   - role: Software Developer
-    org: Personal projects & portfolio
+    org: Personal projects & open portfolio
     period: "2024 – present"
     highlights:
-      - Building this portfolio and case studies with Zola, SCSS, and Alpine.js
-      - Inventory sync and ops checklist prototypes (Rust, PostgreSQL, Docker)
+      - Designed and built this portfolio (Zola, SCSS, Alpine.js) with an interactive terminal
+      - Inventory Sync — automated stock reconciliation (Rust, PostgreSQL, REST APIs)
+      - Ops Checklist — deployment runbooks and repeatable incident response (Docker, CI/CD)
 
-  - role: Developer (learning & practice)
-    org: School and side projects
+  - role: Developer
+    org: Education & side projects
     period: "2022 – 2024"
     highlights:
-      - Full-stack web apps with TypeScript and structured CSS
-      - DevOps basics — CI pipelines, containers, repeatable deploys
+      - Full-stack web applications with TypeScript and component-driven CSS
+      - CI/CD pipelines, containerized dev environments, and GitHub Actions workflows
+      - Pair programming, code review, and documentation as part of delivery

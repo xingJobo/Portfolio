@@ -6,13 +6,29 @@ files:
       ls
       cat about.md
       cat experience.md
+      cat projects.md
+      ls -a
+      cat .secret.md
       cd portfolio && zola serve
       git status
 
   - name: .vimrc
     content: |
-      " keep it minimal — like this site
+      " minimal config — like this site
       set number
       set expandtab
       set shiftwidth=4
+      set tabstop=4
       colorscheme desert
+
+  - name: .secret.md
+    content: |
+      # you found it
+
+      Nice — you ran ls -a and poked around. That is the right instinct.
+
+      If you are hiring or collaborating: mention the secret file when you reach out.
+      I will know you actually explored.
+
+      $ cat contact.md
+      (just kidding — try scrolling to the contact section.)

@@ -2,8 +2,9 @@
 {% set skills = load_data(path="data/skills.yaml") %}
 {% set projects = get_section(path="projects/_index.md") %}
 {% set easter_eggs = load_data(path="data/terminal/easter-eggs.yaml") %}
+{% set readme = load_data(path="data/terminal/readme.yaml") %}
 
-{% set readme_content = "# xingJobo portfolio\n\nWelcome. Explore this site with familiar shell commands.\n\n  ls        list files\n  ls -a     include hidden dotfiles\n  cat FILE  read a file (e.g. cat about.md)\n  help      command list\n  clear     clear the screen\n\nTry: ls" %}
+{% set readme_content = readme.content ~ "\n\n" ~ readme.boot_hint %}
 
 {% set about_content = "# About\n\n**" ~ section.extra.subtitle ~ "**\n\n" ~ section.extra.headline ~ "\n\n" ~ section.extra.lead ~ "\n\n" ~ section.extra.about_lead %}
 

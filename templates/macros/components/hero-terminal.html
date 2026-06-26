@@ -1,8 +1,14 @@
+<p id="terminal-hint" class="hero-terminal__sr-only">
+    Interactive terminal. Type a command and press Enter. Try ls, cat about.md, or help. Use ls -a to reveal hidden dotfiles.
+</p>
 <div
     class="hero-terminal"
     x-data="heroTerminal"
     role="region"
     aria-label="Portfolio terminal"
+    aria-describedby="terminal-hint"
+    tabindex="0"
+    @focus="focusInput()"
     @click="focusInput()"
 >
     <div class="hero-terminal__chrome" aria-hidden="true">
@@ -14,8 +20,16 @@
         <span class="hero-terminal__title">xingjobo@portfolio:~</span>
     </div>
     <div class="hero-terminal__body">
-        <pre class="hero-terminal__output" x-ref="output" x-text="output" aria-live="polite"></pre>
-        <form class="hero-terminal__input-row" @submit.prevent="runCommand()">
+        <pre
+            class="hero-terminal__output"
+            x-ref="output"
+            x-text="output"
+            aria-live="polite"
+            aria-label="Terminal output"
+            id="terminal-output"
+            tabindex="-1"
+        ></pre>
+        <form class="hero-terminal__input-row" @submit.prevent="runCommand()" @click.stop>
             <label class="hero-terminal__sr-only" for="terminal-input">Terminal command</label>
             <span class="hero-terminal__prompt" aria-hidden="true">$</span>
             <input
@@ -24,10 +38,12 @@
                 type="text"
                 x-ref="input"
                 x-model="line"
+                placeholder="ls, cat about.md, help…"
                 autocomplete="off"
                 spellcheck="false"
                 autocapitalize="off"
                 enterkeyhint="go"
+                aria-controls="terminal-output"
             >
         </form>
     </div>

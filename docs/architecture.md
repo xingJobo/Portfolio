@@ -89,8 +89,9 @@ YAML files in `data/` keep lists editable without touching templates.
 |------|-------------|---------|
 | `data/nav.yaml` | `macros/shell/scroll-nav.html` | Six scroll sections; `id` matches DOM `id` on home |
 | `data/skills.yaml` | `macros/sections/skills.html` | Skill bars + “also comfortable with” tags |
-| `data/experience.yaml` | Hero terminal (planned) | Roles, dates, highlights → `experience.md` in virtual FS |
-| `data/terminal/easter-eggs.yaml` | Hero terminal (planned) | Hidden dotfile content (`ls -a`) |
+| `data/experience.yaml` | Hero terminal | Roles, dates, highlights → `experience.md` in virtual FS |
+| `data/terminal/readme.yaml` | Hero terminal | `README.md` welcome text and boot hint |
+| `data/terminal/easter-eggs.yaml` | Hero terminal | Hidden dotfile content (`ls -a`) |
 
 Load in templates:
 

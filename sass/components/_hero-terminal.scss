@@ -14,6 +14,16 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
     font-family: $font-family-mono;
     font-size: clamp(0.6875rem, 1.6vw, 0.8125rem);
     line-height: 1.5;
+    cursor: text;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid rgba($color-accent, 0.85);
+        outline-offset: 2px;
+    }
 }
 
 .hero-terminal__chrome {
@@ -77,6 +87,10 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
     word-break: break-word;
     cursor: text;
     user-select: text;
+
+    @media (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
 }
 
 .hero-terminal__cursor {
@@ -141,5 +155,9 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
     .hero-terminal {
         aspect-ratio: auto;
         min-height: 14rem;
+    }
+
+    .hero-terminal__input {
+        font-size: 1rem;
     }
 }

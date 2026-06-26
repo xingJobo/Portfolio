@@ -8,7 +8,7 @@ import { formatFileListing, listFiles, readFile } from "./vfs.js";
 
 const HELP_TEXT = [
   "Available commands:",
-  "  ls [-a]     list files",
+  "  ls [-a]     list files (use -a for hidden dotfiles)",
   "  cat FILE    print file contents",
   "  clear       clear the screen",
   "  help        show this message",

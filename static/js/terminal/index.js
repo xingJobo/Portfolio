@@ -13,21 +13,13 @@ function loadVfs() {
   return JSON.parse(element.textContent);
 }
 
-function prefersReducedMotion() {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
 function bootMessage(vfs) {
   const readme = readFile(vfs, "README.md");
   if (!readme) {
     return "Type help to list commands.";
   }
 
-  if (prefersReducedMotion()) {
-    return readme.content;
-  }
-
-  return `${readme.content}\n\nTry: ls`;
+  return readme.content;
 }
 
 document.addEventListener("alpine:init", () => {
@@ -42,7 +34,9 @@ document.addEventListener("alpine:init", () => {
     },
 
     focusInput() {
-      this.$refs.input?.focus();
+      this.$nextTick(() => {
+        this.$refs.input?.focus();
+      });
     },
 
     scrollOutput() {
@@ -82,6 +76,7 @@ document.addEventListener("alpine:init", () => {
 
       this.line = "";
       this.scrollOutput();
+      this.focusInput();
     },
   }));
 });

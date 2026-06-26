@@ -1,0 +1,14 @@
+# Welcome text for README.md in the hero terminal (see docs/architecture.md).
+
+content: |
+  Commands currently supported:
+
+    ls          list files in this directory
+    ls -a       include hidden dotfiles
+    cat FILE    read a file (e.g. cat experience.md)
+    help        list all commands
+    clear       clear the screen
+
+
+
+
