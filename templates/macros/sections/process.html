@@ -1,19 +1,59 @@
+{% set process = load_data(path="data/process.yaml") %}
+{% set about = load_data(path="data/about.yaml") %}
 <section id="process" class="section process">
-    <div class="container">
-        <h2 class="section__title">Process</h2>
-        <ol class="process__steps">
-            <li class="process__step">
-                <span class="process__step-label">Discover</span>
-                <p class="process__step-text">Understand goals, constraints, and success criteria.</p>
-            </li>
-            <li class="process__step">
-                <span class="process__step-label">Build</span>
-                <p class="process__step-text">Ship iteratively with tests and clear documentation.</p>
-            </li>
-            <li class="process__step">
-                <span class="process__step-label">Deliver</span>
-                <p class="process__step-text">Hand off stable systems and measurable outcomes.</p>
-            </li>
-        </ol>
+    <div class="container process__inner">
+        {% if about.pillars %}
+        <p class="process__strip" aria-hidden="true">
+            {% for pillar in about.pillars %}
+            {{ pillar.title }}{% if not loop.last %} &middot; {% endif %}
+            {% endfor %}
+        </p>
+        {% endif %}
+
+        <header class="process__header">
+            <p class="process__eyebrow">Process</p>
+            <h2 class="process__title">{{ process.title }}</h2>
+            <p class="process__lead">{{ process.lead }}</p>
+        </header>
+
+        <div class="process__track">
+            <div class="process__line" aria-hidden="true">
+                <span class="process__line-accent"></span>
+            </div>
+            <ol class="process__steps">
+                {% for step in process.steps %}
+                <li class="process__step process__step--{{ step.theme | default(value="mint") }}">
+                    <span class="process__marker" aria-hidden="true"></span>
+                    <article class="process__card">
+                        <span class="process__number">{{ step.number }}</span>
+                        <h3 class="process__step-title">{{ step.title }}</h3>
+                        <p class="process__summary">{{ step.summary }}</p>
+                        {% if step.bullets %}
+                        <ul class="process__bullets">
+                            {% for bullet in step.bullets %}
+                            <li class="process__bullet">{{ bullet }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </article>
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+
+        <aside class="process__engagement">
+            <p class="process__engagement-label">{{ process.engagement.label }}</p>
+            <p class="process__engagement-flow">
+                {% for phase in process.engagement.phases %}
+                {% if not loop.first %}
+                <span class="process__engagement-arrow" aria-hidden="true">&rarr;</span>
+                {% endif %}
+                <span class="process__engagement-phase{% if phase.highlight %} process__engagement-phase--highlight{% endif %}">{{ phase.text }}</span>
+                {% endfor %}
+            </p>
+            {% if process.engagement.footnote %}
+            <p class="process__engagement-footnote">{{ process.engagement.footnote }}</p>
+            {% endif %}
+        </aside>
     </div>
 </section>

@@ -1,0 +1,43 @@
+# Process section — see docs/planning/portfolio-mockup-process.svg
+
+title: How I work
+lead: A simple rhythm that keeps stakeholders aligned and risk visible early.
+
+steps:
+  - number: "01"
+    title: Discover
+    summary: Understand goals, constraints, and success criteria.
+    bullets:
+      - Stakeholder interviews
+      - Risk map + scope boundaries
+      - Written brief everyone signs off
+    theme: mint
+
+  - number: "02"
+    title: Build
+    summary: Ship iteratively with tests and clear documentation.
+    bullets:
+      - Thin vertical slices
+      - CI from day one
+      - Demo cadence every 1–2 weeks
+    theme: cyan
+
+  - number: "03"
+    title: Deliver
+    summary: Hand off stable systems and measurable outcomes.
+    bullets:
+      - Runbooks + on-call readiness
+      - Metrics tied to business goals
+      - Knowledge transfer sessions
+    theme: mint
+
+engagement:
+  label: "Typical engagement:"
+  phases:
+    - text: 2-week discovery
+      highlight: false
+    - text: iterative build
+      highlight: false
+    - text: production handoff
+      highlight: true
+  footnote: Works for greenfield products, platform work, and team augmentation.

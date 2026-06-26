@@ -81,27 +81,3 @@
         grid-template-columns: repeat(3, 1fr);
     }
 }
-
-.process__steps {
-    display: grid;
-    gap: $spacing-lg;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    @media (min-width: 768px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-.process__step-label {
-    display: block;
-    margin-bottom: $spacing-xs;
-    font-weight: 600;
-    color: $color-accent;
-}
-
-.process__step-text {
-    margin: 0;
-    color: $color-text-body;
-}

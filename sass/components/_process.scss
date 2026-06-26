@@ -1,0 +1,237 @@
+@use "../common/variables" as *;
+@use "../common/mixins" as *;
+
+.process__inner {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+}
+
+.process__strip {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: $color-text-subtle;
+    opacity: 0.3;
+}
+
+.process__header {
+    max-width: 40rem;
+}
+
+.process__eyebrow {
+    margin: 0 0 $spacing-sm;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-accent;
+}
+
+.process__title {
+    margin: 0 0 $spacing-md;
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: $color-text-primary;
+}
+
+.process__lead {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    color: $color-text-body;
+}
+
+.process__track {
+    position: relative;
+    padding-top: $spacing-md;
+}
+
+.process__line {
+    display: none;
+    position: absolute;
+    top: 0.55rem;
+    right: 16.666%;
+    left: 16.666%;
+    height: 2px;
+    background: $color-border;
+
+    @media (min-width: 768px) {
+        display: block;
+    }
+}
+
+.process__line-accent {
+    display: block;
+    width: 100%;
+    height: 100%;
+    @include accent-gradient;
+    opacity: 0.5;
+    mask-image: repeating-linear-gradient(
+        90deg,
+        #000 0,
+        #000 0.5rem,
+        transparent 0.5rem,
+        transparent 0.875rem
+    );
+}
+
+.process__steps {
+    display: grid;
+    gap: $spacing-lg;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: $spacing-xl;
+    }
+}
+
+.process__step {
+    position: relative;
+    padding-top: $spacing-lg;
+
+    @media (min-width: 768px) {
+        padding-top: $spacing-xl;
+    }
+}
+
+.process__marker {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 2;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 3px solid $color-surface;
+    border-radius: 50%;
+    transform: translateX(-50%);
+
+    @media (min-width: 768px) {
+        display: block;
+    }
+
+    .process__step--mint & {
+        background: $color-accent;
+    }
+
+    .process__step--cyan & {
+        background: $color-accent-secondary;
+    }
+}
+
+.process__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 17.5rem;
+    padding: $spacing-lg $spacing-lg $spacing-xl;
+    border-radius: 0.875rem;
+    background: $color-surface-card-end;
+    border: 1px solid $color-border;
+    box-shadow: 0 0.375rem 0.625rem rgba(0, 0, 0, 0.35);
+}
+
+.process__number {
+    display: block;
+    margin-bottom: $spacing-sm;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    opacity: 0.25;
+
+    .process__step--mint & {
+        color: $color-accent;
+    }
+
+    .process__step--cyan & {
+        color: $color-accent-secondary;
+    }
+}
+
+.process__step-title {
+    margin: 0 0 $spacing-md;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    .process__step--mint & {
+        color: $color-accent;
+    }
+
+    .process__step--cyan & {
+        color: $color-accent-secondary;
+    }
+}
+
+.process__summary {
+    margin: 0 0 $spacing-lg;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: $color-text-ghost;
+}
+
+.process__bullets {
+    margin: auto 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.process__bullet {
+    margin: 0;
+    padding: 0;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: $color-text-subtle;
+
+    & + & {
+        margin-top: $spacing-xs;
+    }
+}
+
+.process__engagement {
+    padding: $spacing-lg $spacing-xl;
+    border-radius: 0.625rem;
+    background: rgba($color-surface-card-start, 0.6);
+    border: 1px solid $color-border;
+}
+
+.process__engagement-label {
+    margin: 0 0 $spacing-sm;
+    font-size: 0.875rem;
+    color: $color-text-body;
+}
+
+.process__engagement-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $spacing-sm $spacing-md;
+    margin: 0 0 $spacing-sm;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: $color-text-primary;
+}
+
+.process__engagement-arrow {
+    color: $color-text-nav;
+    font-weight: 400;
+}
+
+.process__engagement-phase--highlight {
+    color: $color-accent;
+}
+
+.process__engagement-footnote {
+    margin: 0;
+    font-family: ui-monospace, "Cascadia Code", menlo, consolas, monospace;
+    font-size: 0.625rem;
+    line-height: 1.5;
+    color: $color-text-nav;
+}
