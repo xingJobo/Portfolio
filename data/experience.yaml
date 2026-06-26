@@ -1,0 +1,21 @@
+# Work history — rendered to experience.md in the hero terminal (see docs/architecture.md).
+# Replace placeholders with your real roles before launch.
+
+intro: |
+  Software developer focused on maintainable backends, clear APIs, and tooling
+  that teams can run without babysitting.
+
+entries:
+  - role: Software Developer
+    org: Personal projects & portfolio
+    period: "2024 – present"
+    highlights:
+      - Building this portfolio and case studies with Zola, SCSS, and Alpine.js
+      - Inventory sync and ops checklist prototypes (Rust, PostgreSQL, Docker)
+
+  - role: Developer (learning & practice)
+    org: School and side projects
+    period: "2022 – 2024"
+    highlights:
+      - Full-stack web apps with TypeScript and structured CSS
+      - DevOps basics — CI pipelines, containers, repeatable deploys

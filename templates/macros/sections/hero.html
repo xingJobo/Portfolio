@@ -13,8 +13,8 @@
                 <a class="btn btn--ghost" href="#contact">{{ section.extra.cta_secondary | default(value="Get in touch") }}</a>
             </div>
         </div>
-        <div class="hero__visual" aria-hidden="true">
-            <div class="hero__visual-placeholder"></div>
+        <div class="hero__visual">
+            {% include "macros/components/hero-terminal.html" %}
         </div>
     </div>
 </section>

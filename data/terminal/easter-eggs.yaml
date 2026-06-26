@@ -1,0 +1,18 @@
+# Hidden dotfiles for `ls -a` in the hero terminal (see docs/architecture.md).
+
+files:
+  - name: .bash_history
+    content: |
+      ls
+      cat about.md
+      cat experience.md
+      cd portfolio && zola serve
+      git status
+
+  - name: .vimrc
+    content: |
+      " keep it minimal — like this site
+      set number
+      set expandtab
+      set shiftwidth=4
+      colorscheme desert

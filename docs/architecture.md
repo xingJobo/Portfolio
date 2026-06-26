@@ -336,14 +336,168 @@ Alpine must be available before the module registers `Alpine.data` — use `alpi
 - Keyboard: focus input on click; Enter submits; optional ↑/↓ for history.
 - `prefers-reduced-motion`: skip boot typing animation; show static `README.md` excerpt in output on init.
 
-### Implementation phases
+### Implementation steps
 
-| Phase | Scope |
-|-------|--------|
-| **1** | `experience.yaml`, VFS macro, terminal markup + SCSS |
-| **2** | `vfs.js` + `commands.js` — `ls`, `ls -a`, `cat`, `clear`, `help` |
-| **3** | `easter-eggs.yaml`, boot message, `whoami` / `pwd` |
-| **4** | Command history, tab completion (optional) |
+Build in order — each step should compile with `zola build` and be manually testable before moving on.
+
+#### Step 0 — Content data (no UI yet)
+
+**Goal:** Define what the terminal will `cat`, without wiring the terminal.
+
+| Task | File |
+|------|------|
+| Add experience entries (role, period, bullets) | `data/experience.yaml` |
+| Add 1–2 hidden dotfiles for `ls -a` | `data/terminal/easter-eggs.yaml` |
+| Confirm hero/about copy in front matter | `content/_index.md` |
+
+**Verify:** YAML is valid; skills and projects content unchanged.
+
+---
+
+#### Step 1 — Terminal shell (static, no JS)
+
+**Goal:** Replace the hero gradient box with a styled terminal that looks right.
+
+| Task | File |
+|------|------|
+| Terminal markup (title bar, output `<pre>`, prompt + input) | `templates/macros/components/hero-terminal.html` |
+| Swap placeholder for include | `templates/macros/sections/hero.html` |
+| Dark panel, mono font, cursor, 4:3 aspect | `sass/components/_hero-terminal.scss` |
+| Import component styles | `sass/main.scss` |
+
+Hard-code static lines in the `<pre>` (e.g. `Welcome. Try: ls`) so layout can be judged in the browser.
+
+**Verify:** `zola serve` — terminal renders in hero; mobile/desktop layout OK; rest of page unchanged.
+
+---
+
+#### Step 2 — Virtual filesystem at build time
+
+**Goal:** Serialize portfolio content to JSON embedded in the page. Still no command parsing.
+
+| Task | File |
+|------|------|
+| Build `files` map from data + projects section | `templates/macros/components/hero-terminal.html` (Tera) |
+| Emit `<script type="application/json" id="terminal-fs">` | same |
+
+Map sources per table above (`about.md` ← `_index` extra, `skills.md` ← `skills.yaml`, etc.). Use placeholder text where content is not final.
+
+**Verify:** View page source — valid JSON in `#terminal-fs`; filenames and bodies look correct.
+
+---
+
+#### Step 3 — `vfs.js` (filesystem helpers)
+
+**Goal:** Pure functions over the JSON object — testable without Alpine.
+
+| Task | File |
+|------|------|
+| `listFiles(vfs, { all })` — sorted names, respect `hidden` | `static/js/terminal/vfs.js` |
+| `readFile(vfs, name)` — exact + fuzzy match (`about` → `about.md`) | same |
+| Export functions | same |
+
+**Verify:** Temporarily log from browser console or a minimal test HTML page; or proceed to Step 5 and test via `cat`.
+
+---
+
+#### Step 4 — `commands.js` (command parser)
+
+**Goal:** Parse one input line → array of output lines.
+
+| Task | File |
+|------|------|
+| `parseCommand(input)` — trim, split args | `static/js/terminal/commands.js` |
+| Handlers: `help`, `ls`, `ls -a`, `cat`, `clear`, `whoami`, `pwd` | same |
+| Unknown command → error line | same |
+| `runCommand(vfs, input)` — dispatch | same |
+
+**Verify:** Unit-test mentally or via console: `runCommand(vfs, 'ls')`, `cat about.md`, `cat nope`.
+
+---
+
+#### Step 5 — Alpine component (interactive terminal)
+
+**Goal:** Wire input → commands → output buffer.
+
+| Task | File |
+|------|------|
+| `Alpine.data('heroTerminal', …)` on `alpine:init` | `static/js/terminal/index.js` |
+| Read `#terminal-fs` on init; boot message in output | same |
+| Enter submits command; echo `$ command` then result lines | `hero-terminal.html` |
+| Load module after Alpine CDN | `templates/index.html` |
+
+Remove hard-coded static `<pre>` content from Step 1; drive output from Alpine state.
+
+**Verify:** `ls`, `ls -a`, `cat experience.md`, `clear`, `help` work in browser. `zola build` passes.
+
+---
+
+#### Step 6 — Easter eggs and copy polish
+
+**Goal:** Hidden files and welcome text feel intentional.
+
+| Task | File |
+|------|------|
+| Wire dotfiles from `easter-eggs.yaml` into VFS | `hero-terminal.html` (Tera) |
+| Tune `README.md` welcome + hints (`ls`, `cat about.md`) | Tera or `data/terminal/` |
+| Real experience bullets in `experience.yaml` | `data/experience.yaml` |
+
+**Verify:** `ls` hides dotfiles; `ls -a` reveals them; `cat .bash_history` (or similar) prints joke content.
+
+---
+
+#### Step 7 — Accessibility and reduced motion
+
+**Goal:** Terminal is usable without excluding anyone.
+
+| Task | File |
+|------|------|
+| `role="region"`, `aria-label`, labelled input | `hero-terminal.html` |
+| Remove `aria-hidden` from hero visual wrapper | `hero.html` |
+| `@media (prefers-reduced-motion)` — static README, no boot typing | SCSS + `index.js` |
+| Focus input on terminal click; visible focus styles | SCSS |
+
+**Verify:** Keyboard-only navigation; screen reader announces region; reduced-motion shows static welcome.
+
+---
+
+#### Step 8 — Optional polish (later)
+
+Not required for v1:
+
+| Task | Notes |
+|------|--------|
+| Command history (↑/↓) | `index.js` |
+| Tab completion | `commands.js` + `vfs.js` |
+| Boot typing animation | `index.js`, respect reduced motion |
+| `projects/` as subdirectory | extend VFS schema + `ls projects/` |
+
+---
+
+#### Step summary
+
+```text
+0  data/experience.yaml + easter-eggs.yaml
+1  markup + SCSS (static terminal chrome)
+2  Tera → JSON virtual FS in page
+3  vfs.js
+4  commands.js
+5  Alpine index.js → interactive
+6  easter eggs + real copy
+7  a11y + reduced motion
+8  history / tab complete (optional)
+```
+
+Each step is one focused PR or commit. Steps 1–2 are safe to merge early (static terminal + JSON in source). Step 5 is the “it works” milestone.
+
+### Implementation phases (overview)
+
+| Phase | Steps | Scope |
+|-------|-------|--------|
+| **A — Shell** | 0–2 | Data, UI, build-time VFS |
+| **B — Logic** | 3–5 | JS modules + Alpine wiring |
+| **C — Polish** | 6–7 | Easter eggs, a11y |
+| **D — Extra** | 8 | History, tab complete |
 
 ### Out of scope for terminal
 

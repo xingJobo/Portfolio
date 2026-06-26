@@ -1,0 +1,141 @@
+@use "../common/variables" as *;
+
+$font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, consolas, monospace;
+
+.hero-terminal {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 4 / 3;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid rgba($color-text, 0.12);
+    box-shadow: 0 1rem 2.5rem rgba($color-panel, 0.18);
+    background: $color-panel;
+    font-family: $font-family-mono;
+    font-size: clamp(0.6875rem, 1.6vw, 0.8125rem);
+    line-height: 1.5;
+}
+
+.hero-terminal__chrome {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    flex-shrink: 0;
+    padding: $spacing-sm $spacing-md;
+    background: darken($color-panel, 4%);
+    border-bottom: 1px solid rgba(#fff, 0.06);
+}
+
+.hero-terminal__dots {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.hero-terminal__dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    background: rgba(#fff, 0.2);
+
+    &--close {
+        background: #ff5f57;
+    }
+
+    &--minimize {
+        background: #febc2e;
+    }
+
+    &--maximize {
+        background: #28c840;
+    }
+}
+
+.hero-terminal__title {
+    flex: 1;
+    overflow: hidden;
+    font-size: 0.6875rem;
+    color: rgba(#fff, 0.45);
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hero-terminal__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    padding: $spacing-md;
+}
+
+.hero-terminal__output {
+    flex: 1;
+    margin: 0;
+    overflow: auto;
+    color: rgba(#fff, 0.88);
+    white-space: pre-wrap;
+    word-break: break-word;
+    cursor: text;
+    user-select: text;
+}
+
+.hero-terminal__cursor {
+    display: inline-block;
+    width: 0.5em;
+    height: 1.1em;
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    background: $color-accent;
+
+    @media (prefers-reduced-motion: no-preference) {
+        animation: hero-terminal-blink 1.1s step-end infinite;
+    }
+}
+
+@keyframes hero-terminal-blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.hero-terminal__input-row {
+    display: none;
+    align-items: center;
+    gap: $spacing-xs;
+    margin-top: $spacing-sm;
+    padding-top: $spacing-sm;
+    border-top: 1px solid rgba(#fff, 0.08);
+}
+
+.hero-terminal__prompt {
+    flex-shrink: 0;
+    color: $color-accent;
+    font-weight: 600;
+}
+
+.hero-terminal__input {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    color: rgba(#fff, 0.9);
+    background: transparent;
+    outline: none;
+
+    &::placeholder {
+        color: rgba(#fff, 0.35);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-terminal {
+        aspect-ratio: auto;
+        min-height: 14rem;
+    }
+}
