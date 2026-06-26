@@ -19,4 +19,11 @@
 <script type="module" src="{{ get_url(path='js/terminal/index.js') | safe }}"></script>
 <script type="module" src="{{ get_url(path='js/scroll-nav.js') | safe }}"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+<script>
+    window.setTimeout(function () {
+        document.querySelectorAll(".hero-terminal:not(.hero-terminal--ready)").forEach(function (el) {
+            el.classList.add("hero-terminal--fallback");
+        });
+    }, 3000);
+</script>
 {% endblock scripts %}

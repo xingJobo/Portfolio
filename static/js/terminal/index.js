@@ -39,6 +39,10 @@ document.addEventListener("alpine:init", () => {
 
     init() {
       this.output = bootMessage(this.vfs);
+      this.$el.classList.add("hero-terminal--ready");
+      if (this.$refs.input) {
+        this.$refs.input.disabled = false;
+      }
       this.$nextTick(() => this.scrollOutput());
     },
 
