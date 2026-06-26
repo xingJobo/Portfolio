@@ -1,6 +1,5 @@
 import { completeLine } from "./completion.js";
 import { runCommand } from "./commands.js";
-import { readFile } from "./vfs.js";
 
 /**
  * @returns {import("./commands.js").TerminalVfs}
@@ -15,12 +14,7 @@ function loadVfs() {
 }
 
 function bootMessage(vfs) {
-  const readme = readFile(vfs, "README.md");
-  if (!readme) {
-    return "Type help to list commands.";
-  }
-
-  return readme.content;
+  return runCommand(vfs, "help").lines.join("\n");
 }
 
 document.addEventListener("alpine:init", () => {
