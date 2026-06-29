@@ -256,7 +256,7 @@ At **build time**, a Tera macro builds one JSON object and embeds it in the page
 | Virtual file | Built from |
 |--------------|------------|
 | `README.md` | Static welcome + `help` hint |
-| `about.md` | `content/_index.md` `[extra]` (subtitle, lead, about_lead) |
+| `about.md` | `content/_index.md` `[extra]` (subtitle, headline, lead) + `data/about.yaml` (`lead`) |
 | `experience.md` | `data/experience.yaml` |
 | `skills.md` | `data/skills.yaml` (bars + tags, plain-text layout) |
 | `projects.md` | `get_section(path="projects/_index.md")` — title, description, tags per page |

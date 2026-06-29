@@ -1,14 +1,25 @@
 # Welcome text for README.md in the hero terminal (see docs/architecture.md).
 
 content: |
-  Commands currently supported:
+  Welcome dear visitor 
+  This portfolio should grant you a peak into my work. My current journey in the field of information technology.
 
-    ls          list files in this directory
-    ls -a       include hidden dotfiles
-    cat FILE    read a file (e.g. cat experience.md)
-    help        list all commands
+  The purpouse of this terminal is to present the portfolio in a familiar manner to developers.
+  
+  Supported commands:
+
+    ls          lists files in this directory
+    cat         read a file
+    help        lists all commands
     clear       clear the screen
 
-  Tip: Tab completes commands and filenames. ↑ / ↓ browse history.
 
-boot_hint: "Try: ls — or ls -a for hidden files."
+  Support utilities: 
+  
+    Tab completes commands and filenames. 
+    ↑ / ↓ browse history.
+
+  
+  Happy browsing!
+
+

@@ -1,3 +1,4 @@
+{% set about = load_data(path="data/about.yaml") %}
 {% set experience = load_data(path="data/experience.yaml") %}
 {% set skills = load_data(path="data/skills.yaml") %}
 {% set projects = get_section(path="projects/_index.md") %}
@@ -9,7 +10,7 @@
 {% set readme_content = readme.content ~ "\n\n" ~ readme.boot_hint %}
 {% endif %}
 
-{% set about_content = "# About\n\n**" ~ section.extra.subtitle ~ "**\n\n" ~ section.extra.headline ~ "\n\n" ~ section.extra.lead ~ "\n\n" ~ section.extra.about_lead %}
+{% set about_content = "# About\n\n**" ~ section.extra.subtitle ~ "**\n\n" ~ section.extra.headline ~ "\n\n" ~ section.extra.lead ~ "\n\n" ~ about.lead %}
 
 {% set_global experience_content = experience.intro ~ "\n" %}
 {% for entry in experience.entries %}

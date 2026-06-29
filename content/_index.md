@@ -4,10 +4,9 @@ template = "index.html"
 description = "Portfolio — software development and case studies"
 
 [extra]
-subtitle = "Software developer"
-headline = "I build clear, reliable systems"
-lead = "Full-stack development with a focus on maintainable code, thoughtful UX, and shipping outcomes that matter."
-about_lead = "Building reliable software with a focus on clarity, maintainability, and user impact."
+subtitle = "Software developer in training"
+headline = "Web development that ships"
+lead = "Work experience: Smarty templates, vanilla HTML & JS, Python apps, and sites for a real shop. School experience: Projects in containers, databases, and agile delivery."
 cta_primary = "View work"
 cta_secondary = "Get in touch"
 +++
