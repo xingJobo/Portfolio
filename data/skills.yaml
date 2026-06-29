@@ -1,9 +1,9 @@
 # Skills section — see docs/planning/portfolio-mockup-skills.svg
 
 title: Core stack
-bars_footnote: Bars are relative - Where I have the most hands-on practice so far,
-not a claim to be an expert level. 100 would mean production expert; as an apprentice
-I'm still building toward that.
+bars_footnote: >
+  Bars are relative — most hands-on practice so far, not expert level.
+  100 would mean production expert; as an apprentice I'm still building toward that.
 
 employer_signal:
   label: Where I'm strongest
