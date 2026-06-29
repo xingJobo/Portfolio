@@ -1,61 +1,74 @@
+// @ts-check
+
+/** @typedef {{ id: string, section: HTMLElement }} NavSection */
+
 const links = [...document.querySelectorAll(".scroll-nav__link")];
 
 if (links.length) {
-    const sections = links
-        .map((link) => {
-            const id = link.getAttribute("href").slice(1);
-            const section = document.getElementById(id);
-            return section ? { id, section } : null;
-        })
-        .filter(Boolean);
+    /** @type {NavSection[]} */
+    const sections = links.flatMap((link) => {
+        const href = link.getAttribute("href");
+        if (!href) {
+            return [];
+        }
 
-    const setActive = (id) => {
-        links.forEach((link) => {
-            link.classList.toggle(
-                "scroll-nav__link--active",
-                link.getAttribute("href") === `#${id}`,
-            );
-        });
-    };
+        const id = href.slice(1);
+        const section = document.getElementById(id);
+        return section ? [{ id, section }] : [];
+    });
 
-    // Section activates when its top crosses this line (matches prior observer intent).
-    const activationOffset = () => window.innerHeight * 0.35;
+    if (sections.length) {
+        const setActive = (id) => {
+            links.forEach((link) => {
+                link.classList.toggle(
+                    "scroll-nav__link--active",
+                    link.getAttribute("href") === `#${id}`,
+                );
+            });
+        };
 
-    const updateActiveSection = () => {
-        const offset = activationOffset();
-        let activeId = sections[0].id;
+        // Section activates when its top crosses this line (matches prior observer intent).
+        const activationOffset = () => window.innerHeight * 0.35;
 
-        for (const { id, section } of sections) {
-            if (section.getBoundingClientRect().top <= offset) {
-                activeId = id;
+        const updateActiveSection = () => {
+            const offset = activationOffset();
+            let activeId = sections[0].id;
+
+            for (const { id, section } of sections) {
+                if (section.getBoundingClientRect().top <= offset) {
+                    activeId = id;
+                }
             }
-        }
 
-        const atBottom =
-            window.innerHeight + window.scrollY >=
-            document.documentElement.scrollHeight - 2;
+            const atBottom =
+                window.innerHeight + window.scrollY >=
+                document.documentElement.scrollHeight - 2;
 
-        if (atBottom) {
-            activeId = sections[sections.length - 1].id;
-        }
+            if (atBottom) {
+                const last = sections.at(-1);
+                if (last) {
+                    activeId = last.id;
+                }
+            }
 
-        setActive(activeId);
-    };
+            setActive(activeId);
+        };
 
-    let ticking = false;
-    const onScroll = () => {
-        if (ticking) {
-            return;
-        }
+        let ticking = false;
+        const onScroll = () => {
+            if (ticking) {
+                return;
+            }
 
-        ticking = true;
-        requestAnimationFrame(() => {
-            updateActiveSection();
-            ticking = false;
-        });
-    };
+            ticking = true;
+            requestAnimationFrame(() => {
+                updateActiveSection();
+                ticking = false;
+            });
+        };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    updateActiveSection();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        updateActiveSection();
+    }
 }

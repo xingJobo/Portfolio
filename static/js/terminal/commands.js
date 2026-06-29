@@ -1,3 +1,5 @@
+// @ts-check
+
 import { formatFileListing, listFiles, readFile } from "./vfs.js";
 
 /**

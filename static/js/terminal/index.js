@@ -1,3 +1,5 @@
+// @ts-check
+
 import { completeLine } from "./completion.js";
 import { runCommand } from "./commands.js";
 import { formatTerminalOutput } from "./format.js";
@@ -24,12 +26,38 @@ function bootMessage(vfs) {
   return runCommand(vfs, "help").lines.join("\n");
 }
 
-document.addEventListener("alpine:init", () => {
-  Alpine.data("heroTerminal", () => ({
+/**
+ * @typedef {import("./commands.js").TerminalVfs} TerminalVfs
+ * @typedef {{
+ *   vfs: TerminalVfs,
+ *   output: string,
+ *   line: string,
+ *   history: string[],
+ *   historyIndex: number,
+ *   historyDraft: string,
+ *   $el: HTMLElement,
+ *   $refs: { input?: HTMLInputElement, output?: HTMLElement },
+ *   $nextTick: (callback: () => void) => void,
+ *   init: () => void,
+ *   focusInput: () => void,
+ *   scrollOutput: () => void,
+ *   appendOutput: (text: string) => void,
+ *   resetHistoryNavigation: () => void,
+ *   pushHistory: (command: string) => void,
+ *   historyUp: () => void,
+ *   historyDown: () => void,
+ *   tabComplete: () => void,
+ *   handleKeydown: (event: KeyboardEvent) => void,
+ *   runCommand: () => void,
+ * }} HeroTerminalContext
+ */
+
+function heroTerminal() {
+  return {
     vfs: loadVfs(),
     output: "",
     line: "",
-    history: [],
+    history: /** @type {string[]} */ ([]),
     historyIndex: -1,
     historyDraft: "",
 
@@ -37,21 +65,29 @@ document.addEventListener("alpine:init", () => {
       return formatTerminalOutput(this.output);
     },
 
+    /** @this {HeroTerminalContext} */
     init() {
       this.output = bootMessage(this.vfs);
       this.$el.classList.add("hero-terminal--ready");
       if (this.$refs.input) {
         this.$refs.input.disabled = false;
       }
-      this.$nextTick(() => this.scrollOutput());
+      this.$nextTick(() => {
+        const output = this.$refs.output;
+        if (output) {
+          output.scrollTop = 0;
+        }
+      });
     },
 
+    /** @this {HeroTerminalContext} */
     focusInput() {
       this.$nextTick(() => {
         this.$refs.input?.focus();
       });
     },
 
+    /** @this {HeroTerminalContext} */
     scrollOutput() {
       this.$nextTick(() => {
         const output = this.$refs.output;
@@ -61,6 +97,7 @@ document.addEventListener("alpine:init", () => {
       });
     },
 
+    /** @this {HeroTerminalContext} */
     appendOutput(text) {
       if (!text) {
         return;
@@ -69,11 +106,16 @@ document.addEventListener("alpine:init", () => {
       this.output = this.output ? `${this.output}\n${text}` : text;
     },
 
+    /** @this {HeroTerminalContext} */
     resetHistoryNavigation() {
       this.historyIndex = -1;
       this.historyDraft = "";
     },
 
+    /**
+     * @this {HeroTerminalContext}
+     * @param {string} command
+     */
     pushHistory(command) {
       const last = this.history[this.history.length - 1];
       if (last !== command) {
@@ -82,6 +124,7 @@ document.addEventListener("alpine:init", () => {
       this.resetHistoryNavigation();
     },
 
+    /** @this {HeroTerminalContext} */
     historyUp() {
       if (this.history.length === 0) {
         return;
@@ -97,6 +140,7 @@ document.addEventListener("alpine:init", () => {
       this.line = this.history[this.historyIndex];
     },
 
+    /** @this {HeroTerminalContext} */
     historyDown() {
       if (this.historyIndex === -1) {
         return;
@@ -112,6 +156,7 @@ document.addEventListener("alpine:init", () => {
       this.line = this.historyDraft;
     },
 
+    /** @this {HeroTerminalContext} */
     tabComplete() {
       const previous = this.line;
       const result = completeLine(this.vfs, this.line);
@@ -123,6 +168,10 @@ document.addEventListener("alpine:init", () => {
       }
     },
 
+    /**
+     * @this {HeroTerminalContext}
+     * @param {KeyboardEvent} event
+     */
     handleKeydown(event) {
       if (event.key === "ArrowUp") {
         event.preventDefault();
@@ -142,6 +191,7 @@ document.addEventListener("alpine:init", () => {
       }
     },
 
+    /** @this {HeroTerminalContext} */
     runCommand() {
       const input = this.line.trim();
       if (!input) {
@@ -165,5 +215,9 @@ document.addEventListener("alpine:init", () => {
       this.scrollOutput();
       this.focusInput();
     },
-  }));
+  };
+}
+
+document.addEventListener("alpine:init", () => {
+  Alpine.data("heroTerminal", heroTerminal);
 });

@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * Escape HTML and apply mockup-aligned syntax colors to terminal output.
  * @param {string} text

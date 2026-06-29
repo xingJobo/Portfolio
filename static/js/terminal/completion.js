@@ -1,3 +1,5 @@
+// @ts-check
+
 import { listFiles } from "./vfs.js";
 
 const COMMANDS = ["cat", "clear", "help", "ls", "pwd", "whoami"];

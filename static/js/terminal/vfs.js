@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * Virtual filesystem helpers for the hero terminal.
  * @typedef {{ hidden: boolean, content: string }} TerminalFile
