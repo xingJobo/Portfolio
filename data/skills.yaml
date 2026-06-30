@@ -1,4 +1,5 @@
 # Skills section — see docs/planning/portfolio-mockup-skills.svg
+# Tag colors map to category via skills__tag--{category} in _skills.scss
 
 title: Core stack
 bars_footnote: >
@@ -9,6 +10,20 @@ employer_signal:
   label: Where I'm strongest
   text: Web interfaces and small full-stack pieces.
 
+tag_categories:
+  language:
+    label: Languages
+  frontend:
+    label: Frontend
+  backend:
+    label: Backend & data
+  devops:
+    label: DevOps & tooling
+  platform:
+    label: Cloud & platforms
+  framework:
+    label: Frameworks
+
 bars:
   - name: Backend (SQL & NoSQL)
     level: 70
@@ -18,14 +33,34 @@ bars:
     level: 45
 
 also_comfortable_with:
-  - HTML & CSS
-  - Smarty
-  - TypeScript
-  - Docker
-  - PostgreSQL
-  - AWS
-  - Git & GitHub
-  - Python
+  - name: HTML & CSS
+    category: frontend
+  - name: Smarty
+    category: frontend
+  - name: TypeScript
+    category: language
+  - name: Docker
+    category: devops
+  - name: PostgreSQL
+    category: backend
+  - name: AWS
+    category: platform
+  - name: Git & GitHub
+    category: devops
+  - name: Python
+    category: language
+
+frameworks:
+  - name: Smarty
+    category: frontend
+  - name: Spring Boot
+    category: backend
+  - name: Zola
+    category: framework
+  - name: Alpine.js
+    category: framework
+  - name: Angular
+    category: framework
 
 recent_tooling:
   label: Recent tooling
@@ -33,10 +68,3 @@ recent_tooling:
     - Smarty, vanilla HTML & JS - Shop site and infoscreen at work
     - Docker Compose, SQL & NoSQL - School projects
     - Zola, Alpine.js, GitHub Actions - This portfolio
-
-frameworks_used:
-  - Smarty
-  - Springboot
-  - Zola
-  - Alpine.js
-  - Angular

@@ -41,10 +41,10 @@ During the **Scrum module** at school, our team built a **Wordle-style game** in
 
 We did not jump straight into implementation. The sequence was:
 
-1. **Epics** — large goals (playable game, word management)
-2. **User stories** — break epics into backlog items we could estimate and assign
-3. **Definition of Done (DoD)** — agree what “finished” means for a story
-4. **Architecture** — how the Svelte app is structured and how data flows
+- **Epics** — large goals (playable game, word management)
+- **User stories** — break epics into backlog items we could estimate and assign
+- **Definition of Done (DoD)** — agree what “finished” means for a story
+- **Architecture** — how the Svelte app is structured and how data flows
 
 Only after that did we start the two build sprints.
 

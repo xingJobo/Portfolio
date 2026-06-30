@@ -144,6 +144,66 @@
     border-bottom: 1px solid $color-border;
 }
 
+.skills__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-xs $spacing-sm;
+    margin: 0 0 $spacing-md;
+    padding: 0;
+    list-style: none;
+}
+
+.skills__legend-item {
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-text-nav;
+
+    &::before {
+        content: "";
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+        margin-right: 0.35rem;
+        border-radius: 2px;
+        vertical-align: middle;
+    }
+
+    &--language::before {
+        background: $color-accent;
+    }
+
+    &--frontend::before {
+        background: $color-accent-secondary;
+    }
+
+    &--backend::before {
+        background: $color-text-ghost;
+    }
+
+    &--devops::before {
+        background: mix($color-accent-secondary, $color-accent, 50%);
+    }
+
+    &--platform::before {
+        background: $color-text-label;
+    }
+
+    &--framework::before {
+        background: linear-gradient(90deg, $color-accent, $color-accent-secondary);
+    }
+}
+
+.skills__frameworks-title {
+    margin: 0 0 $spacing-sm;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-text-nav;
+}
+
 .skills__tags {
     display: flex;
     flex-wrap: wrap;
@@ -151,6 +211,10 @@
     margin: 0 0 $spacing-xl;
     padding: 0;
     list-style: none;
+
+    &--frameworks {
+        margin-bottom: $spacing-lg;
+    }
 }
 
 .skills__tag {
@@ -162,12 +226,44 @@
     color: $color-text-label;
     background: $color-surface-chip;
 
-    &--mint {
+    &--language {
         color: $color-accent;
+        border-color: rgba($color-accent, 0.35);
+        background: rgba($color-accent, 0.08);
     }
 
-    &--cyan {
+    &--frontend {
         color: $color-accent-secondary;
+        border-color: rgba($color-accent-secondary, 0.35);
+        background: rgba($color-accent-secondary, 0.08);
+    }
+
+    &--backend {
+        color: $color-text-ghost;
+        border-color: rgba($color-text-ghost, 0.35);
+        background: rgba($color-surface-muted, 0.5);
+    }
+
+    &--devops {
+        color: mix($color-accent-secondary, $color-accent, 40%);
+        border-color: rgba($color-accent, 0.28);
+        background: rgba($color-accent, 0.06);
+    }
+
+    &--platform {
+        color: $color-text-label;
+        border-color: $color-border-strong;
+        background: $color-surface-input;
+    }
+
+    &--framework {
+        color: $color-text-primary;
+        border-color: rgba($color-accent, 0.4);
+        background: linear-gradient(
+            135deg,
+            rgba($color-accent, 0.12),
+            rgba($color-accent-secondary, 0.1)
+        );
     }
 }
 

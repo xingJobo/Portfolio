@@ -1,5 +1,4 @@
 {% set skills = load_data(path="data/skills.yaml") %}
-{% set process = load_data(path="data/process.yaml") %}
 <section id="skills" class="section skills">
     <div class="container skills__inner">
 
@@ -45,11 +44,26 @@
 
             <aside class="skills__comfort-card">
                 <h3 class="skills__comfort-title">Also comfortable with</h3>
-                <ul class="skills__tags">
-                    {% for tag in skills.also_comfortable_with %}
-                    <li class="skills__tag{% if loop.index == 1 %} skills__tag--mint{% elif loop.index == 2 %} skills__tag--cyan{% endif %}">{{ tag }}</li>
+                {% if skills.tag_categories %}
+                <ul class="skills__legend" aria-label="Skill tag categories">
+                    {% for key, cat in skills.tag_categories %}
+                    <li class="skills__legend-item skills__legend-item--{{ key }}">{{ cat.label }}</li>
                     {% endfor %}
                 </ul>
+                {% endif %}
+                <ul class="skills__tags">
+                    {% for tag in skills.also_comfortable_with %}
+                    <li class="skills__tag skills__tag--{{ tag.category | default(value="tool") }}">{{ tag.name }}</li>
+                    {% endfor %}
+                </ul>
+                {% if skills.frameworks %}
+                <h4 class="skills__frameworks-title">Frameworks &amp; stacks</h4>
+                <ul class="skills__tags skills__tags--frameworks">
+                    {% for tag in skills.frameworks %}
+                    <li class="skills__tag skills__tag--{{ tag.category | default(value="framework") }}">{{ tag.name }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
                 {% if skills.recent_tooling %}
                 <div class="skills__tooling">
                     <p class="skills__tooling-label">{{ skills.recent_tooling.label }}</p>

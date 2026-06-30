@@ -35,8 +35,14 @@
 {% endfor %}
 {% set_global skills_content = skills_content ~ "\n# Also comfortable with\n\n" %}
 {% for tag in skills.also_comfortable_with %}
-{% set_global skills_content = skills_content ~ "- " ~ tag ~ "\n" %}
+{% set_global skills_content = skills_content ~ "- " ~ tag.name ~ " (" ~ tag.category ~ ")\n" %}
 {% endfor %}
+{% if skills.frameworks %}
+{% set_global skills_content = skills_content ~ "\n# Frameworks & stacks\n\n" %}
+{% for tag in skills.frameworks %}
+{% set_global skills_content = skills_content ~ "- " ~ tag.name ~ " (" ~ tag.category ~ ")\n" %}
+{% endfor %}
+{% endif %}
 
 {% set_global projects_content = "# Selected projects\n\n" %}
 {% for page in projects.pages %}
