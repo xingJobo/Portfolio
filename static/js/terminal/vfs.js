@@ -48,9 +48,10 @@ export function readFile(vfs, query) {
 /**
  * @param {TerminalVfs} vfs
  * @param {string} query
+ * @param {{ strict?: boolean }} [options]
  * @returns {string | null}
  */
-export function resolveFileName(vfs, query) {
+export function resolveFileName(vfs, query, { strict = false } = {}) {
   if (!vfs?.files || !query) {
     return null;
   }
@@ -64,6 +65,17 @@ export function resolveFileName(vfs, query) {
 
   if (files[trimmed]) {
     return trimmed;
+  }
+
+  const lower = trimmed.toLowerCase();
+  for (const name of Object.keys(files)) {
+    if (name.toLowerCase() === lower) {
+      return name;
+    }
+  }
+
+  if (strict) {
+    return null;
   }
 
   const candidates = new Set([trimmed]);
@@ -80,13 +92,7 @@ export function resolveFileName(vfs, query) {
     }
   }
 
-  const lower = trimmed.toLowerCase();
   for (const name of Object.keys(files)) {
-    const nameLower = name.toLowerCase();
-    if (nameLower === lower) {
-      return name;
-    }
-
     const base = name.replace(/\.md$/i, "");
     if (base.toLowerCase() === lower) {
       return name;

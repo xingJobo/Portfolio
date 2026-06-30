@@ -1,6 +1,6 @@
 // @ts-check
 
-import { formatFileListing, listFiles, readFile } from "./vfs.js";
+import { formatFileListing, listFiles, readFile, resolveFileName } from "./vfs.js";
 
 /**
  * @typedef {{ hidden: boolean, content: string }} TerminalFile
@@ -67,14 +67,46 @@ export function runCommand(vfs, input) {
 }
 
 /**
+ * @param {string[]} args
+ * @returns {{ showAll: boolean, paths: string[] }}
+ */
+function parseLsArgs(args) {
+  let showAll = false;
+  /** @type {string[]} */
+  const paths = [];
+
+  for (const arg of args) {
+    if (arg.startsWith("-")) {
+      if (arg.includes("a")) {
+        showAll = true;
+      }
+    } else {
+      paths.push(arg);
+    }
+  }
+
+  return { showAll, paths };
+}
+
+/**
  * @param {TerminalVfs} vfs
  * @param {string[]} args
  * @returns {CommandResult}
  */
 function handleLs(vfs, args) {
-  const showAll = args.some((arg) => arg.includes("a"));
-  const names = listFiles(vfs, { all: showAll });
-  return { lines: [formatFileListing(names)] };
+  const { showAll, paths } = parseLsArgs(args);
+
+  if (paths.length === 0) {
+    const names = listFiles(vfs, { all: showAll });
+    return { lines: names.length ? [formatFileListing(names)] : [] };
+  }
+
+  const lines = paths.map((path) => {
+    const name = resolveFileName(vfs, path, { strict: true });
+    return name ?? `ls: cannot access '${path}': No such file or directory`;
+  });
+
+  return { lines };
 }
 
 /**

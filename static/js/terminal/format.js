@@ -54,7 +54,7 @@ function formatTerminalLine(line) {
 
   const escaped = escapeHtml(line);
 
-  if (/command not found|No such file|cat:/i.test(escaped)) {
+  if (/command not found|No such file|cat:|ls: cannot access/i.test(escaped)) {
     return `<span class="fauxsh__line fauxsh__line--error">${escaped}</span>`;
   }
 

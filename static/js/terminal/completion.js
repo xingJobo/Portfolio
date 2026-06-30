@@ -86,9 +86,13 @@ export function getCompletions(vfs, line) {
 
   if (command === "ls" && tokens.length >= 2) {
     const partial = endsWithSpace ? "" : tokens[tokens.length - 1] ?? "";
-    if (partial.startsWith("-") || partial === "") {
+    if (partial === "" || partial.startsWith("-")) {
       return matchPrefix(["-a"], partial);
     }
+
+    const showHidden = partial.startsWith(".");
+    const files = listFiles(vfs, { all: showHidden });
+    return matchPrefix(files, partial);
   }
 
   if (leading && tokens.length === 0) {
