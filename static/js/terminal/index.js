@@ -3,7 +3,8 @@
 
 import { completeLine } from "./completion.js";
 import { runCommand } from "./commands.js";
-import { formatTerminalOutput } from "./format.js";
+import { formatPromptHtml, formatTerminalOutput } from "./format.js";
+import { formatPrompt } from "./prompt.js";
 import { normalizeTerminalContent } from "./vfs.js";
 /**
  * @returns {import("./commands.js").TerminalVfs}
@@ -36,6 +37,7 @@ function bootMessage(vfs) {
  *   history: string[],
  *   historyIndex: number,
  *   historyDraft: string,
+ *   inputFocused: boolean,
  *   $el: HTMLElement,
  *   $refs: { input?: HTMLInputElement, output?: HTMLElement },
  *   $nextTick: (callback: () => void) => void,
@@ -50,10 +52,10 @@ function bootMessage(vfs) {
  *   tabComplete: () => void,
  *   handleKeydown: (event: KeyboardEvent) => void,
  *   runCommand: () => void,
- * }} HeroTerminalContext
+ * }} fauxshContext
  */
 
-function heroTerminal() {
+function fauxsh() {
   return {
     vfs: loadVfs(),
     output: "",
@@ -61,15 +63,24 @@ function heroTerminal() {
     history: /** @type {string[]} */ ([]),
     historyIndex: -1,
     historyDraft: "",
+    inputFocused: false,
+
+    get promptHtml() {
+      return formatPromptHtml(this.vfs);
+    },
+
+    get prompt() {
+      return formatPrompt(this.vfs);
+    },
 
     get formattedOutput() {
       return formatTerminalOutput(this.output);
     },
 
-    /** @this {HeroTerminalContext} */
+    /** @this {fauxshContext} */
     init() {
       this.output = bootMessage(this.vfs);
-      this.$el.classList.add("hero-terminal--ready");
+      this.$el.classList.add("fauxsh--ready");
       if (this.$refs.input) {
         this.$refs.input.disabled = false;
       }
@@ -81,14 +92,14 @@ function heroTerminal() {
       });
     },
 
-    /** @this {HeroTerminalContext} */
+    /** @this {fauxshContext} */
     focusInput() {
       this.$nextTick(() => {
         this.$refs.input?.focus();
       });
     },
 
-    /** @this {HeroTerminalContext} */
+    /** @this {fauxshContext} */
     scrollOutput() {
       this.$nextTick(() => {
         const output = this.$refs.output;
@@ -98,7 +109,7 @@ function heroTerminal() {
       });
     },
 
-    /** @this {HeroTerminalContext} */
+    /** @this {fauxshContext} */
     appendOutput(text) {
       if (!text) {
         return;
@@ -107,14 +118,14 @@ function heroTerminal() {
       this.output = this.output ? `${this.output}\n${text}` : text;
     },
 
-    /** @this {HeroTerminalContext} */
+    /** @this {fauxshContext} */
     resetHistoryNavigation() {
       this.historyIndex = -1;
       this.historyDraft = "";
     },
 
     /**
-     * @this {HeroTerminalContext}
+     * @this {fauxshContext}
      * @param {string} command
      */
     pushHistory(command) {
@@ -125,7 +136,7 @@ function heroTerminal() {
       this.resetHistoryNavigation();
     },
 
-    /** @this {HeroTerminalContext} */
+    /** @this {fauxshContext} */
     historyUp() {
       if (this.history.length === 0) {
         return;
@@ -141,7 +152,7 @@ function heroTerminal() {
       this.line = this.history[this.historyIndex];
     },
 
-    /** @this {HeroTerminalContext} */
+    /** @this {fauxshContext} */
     historyDown() {
       if (this.historyIndex === -1) {
         return;
@@ -157,7 +168,7 @@ function heroTerminal() {
       this.line = this.historyDraft;
     },
 
-    /** @this {HeroTerminalContext} */
+    /** @this {fauxshContext} */
     tabComplete() {
       const previous = this.line;
       const result = completeLine(this.vfs, this.line);
@@ -170,7 +181,7 @@ function heroTerminal() {
     },
 
     /**
-     * @this {HeroTerminalContext}
+     * @this {fauxshContext}
      * @param {KeyboardEvent} event
      */
     handleKeydown(event) {
@@ -192,7 +203,7 @@ function heroTerminal() {
       }
     },
 
-    /** @this {HeroTerminalContext} */
+    /** @this {fauxshContext} */
     runCommand() {
       const input = this.line.trim();
       if (!input) {
@@ -200,7 +211,7 @@ function heroTerminal() {
       }
 
       this.pushHistory(input);
-      this.appendOutput(`$ ${input}`);
+      this.appendOutput(`${this.prompt}${input}`);
 
       const result = runCommand(this.vfs, input);
 
@@ -220,5 +231,5 @@ function heroTerminal() {
 }
 
 document.addEventListener("alpine:init", () => {
-  Alpine.data("heroTerminal", heroTerminal);
+  Alpine.data("fauxsh", fauxsh);
 });

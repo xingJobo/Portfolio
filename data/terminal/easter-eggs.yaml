@@ -1,4 +1,4 @@
-# Hidden dotfiles for `ls -a` in the hero terminal (see docs/architecture.md).
+# Hidden dotfiles for `ls -a` in fauxsh (see docs/architecture.md).
 
 files:
   - name: .bash_history

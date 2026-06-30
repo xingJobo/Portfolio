@@ -1,0 +1,11 @@
+{# Static terminal session when JS is off or fails to load #}
+{% set readme = load_data(path="data/terminal/readme.yaml") %}
+<span class="fauxsh__line fauxsh__line--cmd"><span class="fauxsh__prompt-user">xingjobo@portfolio</span><span class="fauxsh__prompt-path">:~</span><span class="fauxsh__prompt-mark">$ </span>cat README.md</span>
+<span class="fauxsh__line fauxsh__line--text">Welcome to xingJobo's workspace.</span>
+<span class="fauxsh__line fauxsh__line--text">{{ readme.boot_hint | default(value="Try: ls — cat experience.md — help") }}</span>
+<span class="fauxsh__line fauxsh__line--cmd"><span class="fauxsh__prompt-user">xingjobo@portfolio</span><span class="fauxsh__prompt-path">:~</span><span class="fauxsh__prompt-mark">$ </span>ls</span>
+<span class="fauxsh__line fauxsh__line--text"><span class="fauxsh__token fauxsh__token--accent">about.md</span>  <span class="fauxsh__token fauxsh__token--accent">experience.md</span>  <span class="fauxsh__token fauxsh__token--accent">projects.md</span>  <span class="fauxsh__token fauxsh__token--accent">README.md</span>  <span class="fauxsh__token fauxsh__token--accent">skills.md</span></span>
+<span class="fauxsh__line fauxsh__line--cmd"><span class="fauxsh__prompt-user">xingjobo@portfolio</span><span class="fauxsh__prompt-path">:~</span><span class="fauxsh__prompt-mark">$ </span>cat experience.md</span>
+<span class="fauxsh__line fauxsh__line--text">Backend · APIs · automation</span>
+<span class="fauxsh__line fauxsh__line--text">  shipping stable systems since 2019</span>
+<span class="fauxsh__line fauxsh__line--cmd"><span class="fauxsh__prompt-user">xingjobo@portfolio</span><span class="fauxsh__prompt-path">:~</span><span class="fauxsh__prompt-mark">$ </span><span class="fauxsh__block-cursor fauxsh__block-cursor--on"></span></span>

@@ -58,7 +58,7 @@ export function runCommand(vfs, input) {
     case "clear":
       return { lines: [], clear: true };
     case "whoami":
-      return { lines: ["Visitor X"] };
+      return { lines: ["xingjobo"] };
     case "pwd":
       return { lines: [vfs.cwd ?? "/home/xingjobo"] };
     default:

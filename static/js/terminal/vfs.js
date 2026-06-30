@@ -98,32 +98,12 @@ export function resolveFileName(vfs, query) {
 
 /**
  * @param {string[]} names
- * @param {number} [columns]
  * @returns {string}
  */
-export function formatFileListing(names, columns = 2) {
+export function formatFileListing(names) {
   if (names.length === 0) {
     return "";
   }
 
-  if (names.length === 1) {
-    return names[0];
-  }
-
-  const colWidth = Math.max(...names.map((name) => name.length)) + 2;
-  const rows = Math.ceil(names.length / columns);
-  const lines = [];
-
-  for (let row = 0; row < rows; row += 1) {
-    const parts = [];
-    for (let col = 0; col < columns; col += 1) {
-      const name = names[row + col * rows];
-      if (name) {
-        parts.push(name.padEnd(colWidth));
-      }
-    }
-    lines.push(parts.join("").trimEnd());
-  }
-
-  return lines.join("\n");
+  return names.join("  ");
 }

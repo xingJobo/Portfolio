@@ -6,7 +6,7 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal {
+.fauxsh {
 
     display: flex;
 
@@ -56,7 +56,7 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal__chrome {
+.fauxsh__chrome {
 
     display: flex;
 
@@ -76,7 +76,7 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal__title {
+.fauxsh__title {
 
     overflow: hidden;
 
@@ -94,7 +94,7 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal__body {
+.fauxsh__body {
 
     display: flex;
 
@@ -108,11 +108,13 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
     background: $color-terminal-bg;
 
+    line-height: 1.2;
+
 }
 
 
 
-.hero-terminal__output {
+.fauxsh__output {
 
     flex: 1;
 
@@ -130,6 +132,8 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
     user-select: text;
 
+    line-height: 1.2;
+
 
 
     @media (prefers-reduced-motion: reduce) {
@@ -142,7 +146,7 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal__line {
+.fauxsh__line {
 
     display: inline;
 
@@ -174,7 +178,7 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal__token {
+.fauxsh__token {
 
     &--cmd {
 
@@ -202,7 +206,7 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal__cursor {
+.fauxsh__cursor {
 
     display: none;
 
@@ -210,21 +214,31 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal__input-row {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: $spacing-xs;
+.fauxsh__input-row {
 
     flex-shrink: 0;
 
-    margin-top: $spacing-sm;
+    margin: 0;
 
-    padding-top: $spacing-sm;
+    padding: 0;
 
-    border-top: 1px solid $color-border;
+    border: 0;
+
+    line-height: 1.2;
+
+}
+
+
+
+.fauxsh__input-line {
+
+    display: block;
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 1.2em;
 
     cursor: text;
 
@@ -232,7 +246,109 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal__sr-only {
+.fauxsh__typed {
+
+    white-space: pre-wrap;
+
+    word-break: break-word;
+
+}
+
+
+
+.fauxsh__prompt-user {
+
+    color: $color-terminal-accent;
+
+}
+
+
+
+.fauxsh__prompt-path {
+
+    color: $color-terminal-path;
+
+}
+
+
+
+.fauxsh__prompt-mark {
+
+    color: $color-terminal-text;
+
+}
+
+
+
+.fauxsh__block-cursor {
+
+    display: inline-block;
+
+    width: 0.5em;
+
+    height: 1em;
+
+    margin-left: 1px;
+
+    vertical-align: text-bottom;
+
+    background: $color-terminal-accent;
+
+    opacity: 0;
+
+
+
+    &--on {
+
+        opacity: 1;
+
+        animation: fauxsh-cursor-blink 1s step-end infinite;
+
+    }
+
+}
+
+
+
+@keyframes fauxsh-cursor-blink {
+
+    0%,
+
+    50% {
+
+        opacity: 1;
+
+    }
+
+
+
+    51%,
+
+    100% {
+
+        opacity: 0;
+
+    }
+
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .fauxsh__block-cursor--on {
+
+        animation: none;
+
+        opacity: 1;
+
+    }
+
+}
+
+
+
+.fauxsh__sr-only {
 
     position: absolute;
 
@@ -256,21 +372,23 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal__prompt {
+.fauxsh__prompt {
 
     flex-shrink: 0;
 
-    color: $color-terminal-cmd;
-
-    font-weight: 600;
+    font-weight: 400;
 
 }
 
 
 
-.hero-terminal__input {
+.fauxsh__input {
 
-    flex: 1;
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
 
     min-width: 0;
 
@@ -280,21 +398,19 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
     font: inherit;
 
-    color: $color-terminal-text;
+    color: transparent;
 
     background: transparent;
 
     outline: none;
 
-    caret-color: $color-terminal-accent;
+    caret-color: transparent;
 
 
 
     &:focus-visible {
 
-        outline: 1px solid rgba($color-terminal-accent, 0.65);
-
-        outline-offset: 2px;
+        outline: none;
 
     }
 
@@ -320,7 +436,7 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal__fallback-note {
+.fauxsh__fallback-note {
 
     display: none;
 
@@ -344,9 +460,9 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.no-js .hero-terminal__fallback-note,
+.no-js .fauxsh__fallback-note,
 
-.hero-terminal--fallback .hero-terminal__fallback-note {
+.fauxsh--fallback .fauxsh__fallback-note {
 
     display: block;
 
@@ -354,9 +470,9 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.no-js .hero-terminal__input-row,
+.no-js .fauxsh__input-row,
 
-.hero-terminal--fallback .hero-terminal__input-row {
+.fauxsh--fallback .fauxsh__input-row {
 
     display: none;
 
@@ -364,9 +480,9 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.no-js .hero-terminal__fallback-note-text,
+.no-js .fauxsh__fallback-note-text,
 
-.hero-terminal--fallback .hero-terminal__fallback-note-text {
+.fauxsh--fallback .fauxsh__fallback-note-text {
 
     display: inline;
 
@@ -374,7 +490,7 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.js .hero-terminal--ready .hero-terminal__fallback-note {
+.js .fauxsh--ready .fauxsh__fallback-note {
 
     display: none;
 
@@ -382,9 +498,13 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-.hero-terminal__output .hero-terminal__line {
+.fauxsh__output .fauxsh__line {
 
     display: block;
+
+    margin: 0;
+
+    padding: 0;
 
 }
 
@@ -392,7 +512,7 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 @media (max-width: 767px) {
 
-    .hero-terminal {
+    .fauxsh {
 
         aspect-ratio: auto;
 
@@ -402,7 +522,7 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-    .hero-terminal__input {
+    .fauxsh__input {
 
         font-size: 1rem;
 
