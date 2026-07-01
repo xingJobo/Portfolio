@@ -15,7 +15,7 @@
     );
     border: 1px solid rgba(var(--color-border-strong-rgb), 0.7);
 
-    @media (min-width: 768px) {
+    @media (min-width: $breakpoint-md) {
         padding: $spacing-2xl $spacing-xl;
     }
 }
@@ -157,7 +157,7 @@
     @include surface-card;
     box-shadow: 0 0.5rem 0.875rem rgba(0, 0, 0, 0.4);
 
-    @media (min-width: 768px) {
+    @media (min-width: $breakpoint-md) {
         padding: $spacing-xl $spacing-2xl;
     }
 }

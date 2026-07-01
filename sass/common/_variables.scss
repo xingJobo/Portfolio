@@ -72,3 +72,7 @@ $spacing-xl: 2rem;
 $spacing-2xl: 3.5rem;
 $spacing-3xl: 5rem;
 $sidebar-width: 7.5rem;
+
+// Layout breakpoints (mobile-first; matches mockup tablet boundary)
+$breakpoint-md: 48rem; // 768px — left rail visible; below = sidebar hidden
+$breakpoint-md-max: 47.99rem; // max-width counterpart (avoids min/max overlap)

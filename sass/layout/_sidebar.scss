@@ -100,7 +100,7 @@
     transition: color 0.2s ease;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-md-max) {
     .sidebar {
         display: none;
     }
