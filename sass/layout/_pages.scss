@@ -145,6 +145,19 @@
     overflow: hidden;
 }
 
+@media (max-width: $breakpoint-md-max) {
+    // Collapsed terminal slot still lays out a tall fauxsh box (min-height) that overlaps
+    // hero CTAs on mobile and intercepts taps — disable hits until the panel is open.
+    .hero__visual:not(.hero__visual--open) {
+        pointer-events: none;
+
+        .hero__visual-inner,
+        .fauxsh {
+            pointer-events: none;
+        }
+    }
+}
+
 .hero__actions {
     display: flex;
     flex-wrap: wrap;

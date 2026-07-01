@@ -556,24 +556,20 @@ $font-family-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, cons
 
 
 
-@media (max-width: 767px) {
-
-    .fauxsh {
-
+@media (max-width: $breakpoint-md-max) {
+    .hero__inner--terminal-open .fauxsh {
         aspect-ratio: auto;
-
         min-height: 14rem;
-
     }
 
-
+    .hero__inner:not(.hero__inner--terminal-open) .fauxsh {
+        aspect-ratio: auto;
+        min-height: 0;
+    }
 
     .fauxsh__input {
-
         font-size: 1rem;
-
     }
-
 }
 
 

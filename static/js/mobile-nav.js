@@ -8,6 +8,7 @@ if (nav) {
     const overlay = nav.querySelector("[data-mobile-nav-overlay]");
     const drawer = nav.querySelector("[data-mobile-nav-drawer]");
     const links = nav.querySelectorAll("[data-mobile-nav-link]");
+    const main = document.querySelector(".site__main");
 
     /** @type {HTMLElement | null} */
     let lastFocused = null;
@@ -23,6 +24,9 @@ if (nav) {
         toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
         overlay.setAttribute("aria-hidden", open ? "false" : "true");
         document.body.classList.toggle("mobile-nav-open", open);
+        if (main instanceof HTMLElement) {
+            main.inert = open;
+        }
 
         if (toggleLabel) {
             toggleLabel.textContent = open ? "Close" : "Menu";

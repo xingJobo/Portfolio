@@ -99,10 +99,14 @@
     padding-top: calc(3.25rem + #{$spacing-lg});
     background: rgba(0, 0, 0, 0.55);
     cursor: pointer;
+    pointer-events: none;
+    visibility: hidden;
 }
 
 .mobile-nav--open .mobile-nav__overlay {
     display: flex;
+    pointer-events: auto;
+    visibility: visible;
 }
 
 .mobile-nav__panel {
