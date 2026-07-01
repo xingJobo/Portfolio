@@ -1,10 +1,10 @@
 <meta charset="utf-8">
 <script>document.documentElement.classList.replace("no-js", "js");</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% if page.title %}{{ page.title }} · {% endif %}{{ config.title }}</title>
-{% if page.description %}
+<title>{% if page %}{% if page.title %}{{ page.title }} · {% endif %}{% endif %}{{ config.title }}</title>
+{% if page and page.description %}
 <meta name="description" content="{{ page.description | escape }}">
-{% elif section.description %}
+{% elif section and section.description %}
 <meta name="description" content="{{ section.description | escape }}">
 {% elif config.description %}
 <meta name="description" content="{{ config.description | escape }}">

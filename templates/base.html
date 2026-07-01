@@ -3,6 +3,7 @@
 <html lang="{{ config.default_language | default(value='en') }}" class="no-js">
 
 <head>
+  {% block head_extra %}{% endblock head_extra %}
   {% include "macros/shell/head.html" %}
 </head>
 
