@@ -40,3 +40,26 @@
         color: $color-accent;
     }
 }
+
+.btn--terminal {
+    border-color: rgba($color-terminal-accent, 0.55);
+    color: $color-terminal-accent;
+    background: rgba($color-terminal-accent, 0.08);
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, consolas, monospace;
+    font-size: 0.875rem;
+    letter-spacing: 0.02em;
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.25);
+
+    &:hover,
+    &:focus-visible {
+        border-color: $color-terminal-accent;
+        color: $color-terminal-text;
+        background: rgba($color-terminal-accent, 0.16);
+    }
+
+    &[aria-expanded="true"] {
+        border-color: $color-terminal-accent;
+        color: $color-terminal-text;
+        background: rgba($color-terminal-accent, 0.2);
+    }
+}

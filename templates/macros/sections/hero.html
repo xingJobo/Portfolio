@@ -1,23 +1,50 @@
-<section id="hero" class="section hero">
-    <div class="container hero__inner">
-        <div class="hero__content">
-            {% if section.extra.subtitle %}
-            <p class="hero__subtitle">{{ section.extra.subtitle }}</p>
-            {% endif %}
-            <h1 class="hero__title">{{ section.extra.headline | default(value=section.title) }}</h1>
-            {% if section.extra.lead_work %}
-            <p class="hero__lead">{{ section.extra.lead_work }}</p>
-            {% endif %}
-            {% if section.extra.lead_school %}
-            <p class="hero__lead">{{ section.extra.lead_school }}</p>
-            {% endif %}
-            <div class="hero__actions">
-                <a class="btn btn--primary" href="#work">{{ section.extra.cta_primary | default(value="View work") }}</a>
-                <a class="btn btn--ghost" href="#contact">{{ section.extra.cta_secondary | default(value="Get in touch") }}</a>
+<section
+    id="hero"
+    class="section hero"
+    x-data="{ terminalOpen: false }"
+    @keydown.escape.window="terminalOpen = false"
+>
+    <div class="container">
+        <div class="hero__inner" :class="{ 'hero__inner--terminal-open': terminalOpen }">
+            <div class="hero__content">
+                {% if section.extra.subtitle %}
+                <p class="hero__subtitle">{{ section.extra.subtitle }}</p>
+                {% endif %}
+                <h1 class="hero__title">{{ section.extra.headline | default(value=section.title) }}</h1>
+                {% if section.extra.lead_work %}
+                <p class="hero__lead">{{ section.extra.lead_work }}</p>
+                {% endif %}
+                {% if section.extra.lead_school %}
+                <p class="hero__lead">{{ section.extra.lead_school }}</p>
+                {% endif %}
+                <div class="hero__actions">
+                    <a class="btn btn--primary" href="#work">{{ section.extra.cta_primary | default(value="View work") }}</a>
+                    <a class="btn btn--ghost" href="#contact">{{ section.extra.cta_secondary | default(value="Get in touch") }}</a>
+                </div>
+                {% if section.extra.terminal_cta_label or section.extra.terminal_cta_lead %}
+                <div class="hero__terminal-cta">
+                    {% if section.extra.terminal_cta_label %}
+                    <button
+                        type="button"
+                        class="btn btn--terminal"
+                        :aria-expanded="terminalOpen"
+                        aria-controls="terminal"
+                        @click="terminalOpen = !terminalOpen; if (terminalOpen) $nextTick(() => document.getElementById('terminal-input')?.focus())"
+                    >
+                        {{ section.extra.terminal_cta_label }}
+                    </button>
+                    {% endif %}
+                    {% if section.extra.terminal_cta_lead %}
+                    <p class="hero__terminal-lead">{{ section.extra.terminal_cta_lead }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
             </div>
-        </div>
-        <div class="hero__visual">
-            {% include "macros/components/fauxsh.html" %}
+            <div class="hero__visual" :class="{ 'hero__visual--open': terminalOpen }">
+                <div class="hero__visual-inner">
+                    {% include "macros/components/fauxsh.html" %}
+                </div>
+            </div>
         </div>
     </div>
 </section>
