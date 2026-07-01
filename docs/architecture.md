@@ -52,6 +52,7 @@ zola serve    # http://127.0.0.1:1111 — live reload
 zola build    # writes public/
 zola check    # internal link validation
 npm run lint  # optional style/markdown checks
+npm test      # fauxsh terminal unit tests (Vitest)
 ```
 
 Production: push to `main` → GitHub Actions builds and deploys to GitHub Pages.
@@ -160,7 +161,16 @@ Files here are copied unchanged to the site root.
 
 ## URLs
 
-Configured in `zola.toml` as `base_url` (must match GitHub Pages project URL).
+Configured in `zola.toml` as `base_url` (must match the GitHub Pages project URL for production builds).
+
+### Local dev vs production
+
+| Mode | What `get_url()` produces | Notes |
+|------|---------------------------|-------|
+| `zola serve` | `http://127.0.0.1:1111/...` (local origin) | CSS, JS, and terminal modules load correctly while editing. Zola rewrites asset URLs for the dev server — you do not need a separate local `base_url`. |
+| `zola build` / GitHub Pages | `https://xingJobo.github.io/portfolio/...` | Value from `base_url` in `zola.toml`. Used in deployed HTML. |
+
+Opening `public/index.html` directly in a browser (file://) will not resolve those paths; use `zola serve` for local preview.
 
 | URL | Page |
 |-----|------|
@@ -171,7 +181,7 @@ Configured in `zola.toml` as `base_url` (must match GitHub Pages project URL).
 
 - **Remote:** `https://github.com/xingJobo/Portfolio.git`
 - **Git identity (local):** `xingJobo` / `xingjobo@gmail.com`
-- **Workflow:** `.github/workflows/deploy.yml` — build job + deploy job
+- **Workflow:** `.github/workflows/ci.yml` (PR lint + tests + `zola check`), `.github/workflows/deploy.yml` (build + deploy on `main`)
 - **Pages source:** GitHub Actions (not `gh-pages` branch)
 
 ## Hugo → Zola mapping (reference)

@@ -1,11 +1,13 @@
-{# Static terminal session when JS is off or fails to load #}
+{# Static terminal session when JS is off or fails to load — same README text as #terminal-fs #}
 {% set readme = load_data(path="data/terminal/readme.yaml") %}
-<span class="fauxsh__line fauxsh__line--cmd"><span class="fauxsh__prompt-user">xingjobo@portfolio</span><span class="fauxsh__prompt-path">:~</span><span class="fauxsh__prompt-mark">$ </span>cat README.md</span>
-<span class="fauxsh__line fauxsh__line--text">Welcome to xingJobo's workspace.</span>
-<span class="fauxsh__line fauxsh__line--text">{{ readme.boot_hint | default(value="Try: ls — cat experience.md — help") }}</span>
-<span class="fauxsh__line fauxsh__line--cmd"><span class="fauxsh__prompt-user">xingjobo@portfolio</span><span class="fauxsh__prompt-path">:~</span><span class="fauxsh__prompt-mark">$ </span>ls</span>
+{% set readme_display = vfs_md::readme_vfs_content(readme=readme) %}
+
+{{ fauxsh_static::prompt(command="cat README.md") }}
+{% for line in readme_display | split(pat="\n") %}
+{% if line | trim %}
+<span class="fauxsh__line fauxsh__line--text">{{ line | trim }}</span>
+{% endif %}
+{% endfor %}
+{{ fauxsh_static::prompt(command="ls") }}
 <span class="fauxsh__line fauxsh__line--text">about.md  experience.md  projects.md  README.md  skills.md</span>
-<span class="fauxsh__line fauxsh__line--cmd"><span class="fauxsh__prompt-user">xingjobo@portfolio</span><span class="fauxsh__prompt-path">:~</span><span class="fauxsh__prompt-mark">$ </span>cat experience.md</span>
-<span class="fauxsh__line fauxsh__line--text">Backend · APIs · automation</span>
-<span class="fauxsh__line fauxsh__line--text">  shipping stable systems since 2019</span>
 <span class="fauxsh__line fauxsh__line--cmd"><span class="fauxsh__prompt-user">xingjobo@portfolio</span><span class="fauxsh__prompt-path">:~</span><span class="fauxsh__prompt-mark">$ </span><span class="fauxsh__block-cursor fauxsh__block-cursor--on"></span></span>

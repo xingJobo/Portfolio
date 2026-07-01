@@ -78,3 +78,11 @@ Stack: {{ page.extra.tags | join(sep=", ") }}
 
 {% endfor -%}
 {%- endmacro %}
+
+{% macro readme_vfs_content(readme) -%}
+{%- if readme.boot_hint -%}
+{{ readme.content ~ "\n\n" ~ readme.boot_hint }}
+{%- else -%}
+{{ readme.content }}
+{%- endif -%}
+{%- endmacro %}

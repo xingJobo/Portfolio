@@ -4,10 +4,7 @@
 {% set easter_eggs = load_data(path="data/terminal/easter-eggs.yaml") %}
 {% set readme = load_data(path="data/terminal/readme.yaml") %}
 
-{% set readme_content = readme.content %}
-{% if readme.boot_hint %}
-{% set readme_content = readme.content ~ "\n\n" ~ readme.boot_hint %}
-{% endif %}
+{% set readme_content = vfs_md::readme_vfs_content(readme=readme) %}
 
 {% set about_content = vfs_md::about_md(section_extra=section.extra, about=about) %}
 {% set experience_content = vfs_md::experience_md(about=about) %}

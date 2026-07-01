@@ -2,6 +2,27 @@
   "extends": ["stylelint-config-standard-scss"],
   "ignoreFiles": ["public/**", "node_modules/**"],
   "rules": {
-    "no-empty-source": null
+    "no-empty-source": null,
+    "selector-class-pattern": [
+      "^[a-z][a-z0-9]*(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$",
+      { "resolveNestedSelectors": true }
+    ],
+    "alpha-value-notation": null,
+    "at-rule-empty-line-before": null,
+    "color-function-alias-notation": null,
+    "color-function-notation": null,
+    "color-hex-length": null,
+    "custom-property-empty-line-before": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "declaration-empty-line-before": null,
+    "keyframes-name-pattern": null,
+    "media-feature-range-notation": null,
+    "no-descending-specificity": null,
+    "rule-empty-line-before": null,
+    "scss/at-extend-no-missing-placeholder": null,
+    "scss/dollar-variable-empty-line-before": null,
+    "scss/double-slash-comment-empty-line-before": null,
+    "declaration-property-value-keyword-no-deprecated": null,
+    "property-no-deprecated": null
   }
 }
