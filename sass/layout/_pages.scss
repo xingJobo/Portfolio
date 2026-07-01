@@ -47,6 +47,7 @@
     }
 }
 
+// Animation for opening and closing the terminal — grid slot beside hero copy (desktop) or below (mobile).
 .hero__inner {
     display: grid;
     gap: $spacing-xl;
@@ -112,6 +113,7 @@
     line-height: 1.6;
 }
 
+// Terminal panel slot; glow fades in when open (see .hero__visual--open).
 .hero__visual {
     position: relative;
     min-width: 0;
