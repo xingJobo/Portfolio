@@ -9,7 +9,6 @@ thumbnail = "inventory"
 role = "Scrum team member"
 duration = "2 sprints"
 tags = ["Svelte", "Scrum", "JSON"]
-nav_next = "infoscreen"
 
 [[extra.glance]]
 label = "Sprints"

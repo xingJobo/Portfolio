@@ -1,8 +1,7 @@
 // @ts-check
 
+import { COMMAND_NAMES } from "./commands.js";
 import { listFiles } from "./vfs.js";
-
-const COMMANDS = ["cat", "clear", "help", "ls", "pwd", "whoami"];
 
 /**
  * @typedef {import("./vfs.js").TerminalVfs} TerminalVfs
@@ -68,11 +67,11 @@ export function getCompletions(vfs, line) {
   const tokens = trimmed.trim().split(/\s+/).filter(Boolean);
 
   if (tokens.length === 0) {
-    return [...COMMANDS];
+    return [...COMMAND_NAMES];
   }
 
   if (tokens.length === 1 && !endsWithSpace) {
-    return matchPrefix(COMMANDS, tokens[0]);
+    return matchPrefix(COMMAND_NAMES, tokens[0]);
   }
 
   const command = tokens[0].toLowerCase();
@@ -96,7 +95,7 @@ export function getCompletions(vfs, line) {
   }
 
   if (leading && tokens.length === 0) {
-    return COMMANDS;
+    return [...COMMAND_NAMES];
   }
 
   return [];
@@ -116,7 +115,7 @@ export function completeLine(vfs, line) {
 
   if (matches.length === 1) {
     const completed = replaceLastToken(line, matches[0]);
-    const addSpace = COMMANDS.includes(matches[0].toLowerCase());
+    const addSpace = COMMAND_NAMES.includes(matches[0].toLowerCase());
     return { line: addSpace ? `${completed} ` : completed };
   }
 

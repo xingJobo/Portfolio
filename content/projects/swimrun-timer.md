@@ -8,7 +8,6 @@ template = "projects/single.html"
 thumbnail = "migration"
 role = "Solo developer"
 tags = ["Angular", "Slim PHP", "JavaScript"]
-nav_prev = "infoscreen"
 outcome_headline = "Live race timing"
 outcome_detail = "per swimmer and lane · Server-Sent Events"
 

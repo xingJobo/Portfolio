@@ -42,13 +42,8 @@
         </header>
     </div>
 
-    {% if page.extra.diagram or page.extra.glance %}
+    {% if page.extra.glance %}
     <div class="container case-study__showcase">
-        {% if page.extra.diagram %}
-        {% include "macros/components/case-study-diagram.html" %}
-        {% endif %}
-
-        {% if page.extra.glance %}
         <aside class="case-study__glance" aria-label="At a glance">
             <h2 class="case-study__glance-title">At a glance</h2>
             <dl class="case-study__glance-list">
@@ -63,7 +58,6 @@
             <p class="case-study__glance-footnote">{{ page.extra.glance_footnote }}</p>
             {% endif %}
         </aside>
-        {% endif %}
     </div>
     {% endif %}
 
@@ -93,30 +87,36 @@
         </div>
     </div>
 
-    {% if page.extra.nav_prev or page.extra.nav_next %}
-    <nav class="case-study__pager container" aria-label="Other case studies">
-        {% if page.extra.nav_prev %}
-        {% for p in projects_section.pages %}
-        {% if p.slug == page.extra.nav_prev %}
-        <a class="case-study__pager-link case-study__pager-link--prev" href="{{ p.permalink }}">
-            <span class="case-study__pager-icon" aria-hidden="true">←</span>
-            {{ p.title }}
-        </a>
+    {% set_global pager_prev = false %}
+    {% set_global pager_next = false %}
+    {% set_global pager_seen = false %}
+    {% for p in projects_section.pages %}
+        {% if pager_seen and not pager_next %}
+            {% set_global pager_next = p %}
         {% endif %}
-        {% endfor %}
+        {% if p.slug == page.slug %}
+            {% set_global pager_seen = true %}
+        {% elif not pager_seen %}
+            {% set_global pager_prev = p %}
+        {% endif %}
+    {% endfor %}
+
+    {% if pager_prev or pager_next %}
+    <nav class="case-study__pager container" aria-label="Other case studies">
+        {% if pager_prev %}
+        <a class="case-study__pager-link case-study__pager-link--prev" href="{{ pager_prev.permalink }}">
+            <span class="case-study__pager-icon" aria-hidden="true">←</span>
+            {{ pager_prev.title }}
+        </a>
         {% else %}
         <span></span>
         {% endif %}
 
-        {% if page.extra.nav_next %}
-        {% for p in projects_section.pages %}
-        {% if p.slug == page.extra.nav_next %}
-        <a class="case-study__pager-link case-study__pager-link--next" href="{{ p.permalink }}">
-            {{ p.title }}
+        {% if pager_next %}
+        <a class="case-study__pager-link case-study__pager-link--next" href="{{ pager_next.permalink }}">
+            {{ pager_next.title }}
             <span class="case-study__pager-icon" aria-hidden="true">→</span>
         </a>
-        {% endif %}
-        {% endfor %}
         {% endif %}
     </nav>
     {% endif %}

@@ -8,8 +8,6 @@ template = "projects/single.html"
 thumbnail = "checklist"
 role = "Team member"
 tags = ["Smarty", "HTML", "JavaScript", "Microsoft Graph"]
-nav_prev = "wordle"
-nav_next = "swimrun-timer"
 +++
 
 <span id="case-study-writeup"></span>

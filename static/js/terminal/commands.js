@@ -6,21 +6,69 @@ import { formatFileListing, listFiles, readFile, resolveFileName } from "./vfs.j
  * @typedef {{ hidden: boolean, content: string }} TerminalFile
  * @typedef {{ cwd?: string, files: Record<string, TerminalFile> }} TerminalVfs
  * @typedef {{ lines: string[], clear?: boolean }} CommandResult
+ * @typedef {(vfs: TerminalVfs, args: string[]) => CommandResult} CommandHandler
  */
 
-const HELP_TEXT = [
-  "Available commands:",
-  "  ls          list files",
-  "  cat         print file contents",
-  "  clear       clears the terminal screen",
-  "  help        show this message",
-  "  whoami      print username",
-  "  pwd         print working directory",
-  "",
-  "Tips:",
-  "  ↑ / ↓       command history",
-  "  Tab         complete command or filename",
-].join("\n");
+/** @type {Record<string, { description: string, run: CommandHandler }>} */
+const COMMAND_REGISTRY = {
+  help: {
+    description: "show this message",
+    run() {
+      return { lines: [buildHelpText()] };
+    },
+  },
+  ls: {
+    description: "list files",
+    run: handleLs,
+  },
+  cat: {
+    description: "print file contents",
+    run: handleCat,
+  },
+  clear: {
+    description: "clears the terminal screen",
+    run() {
+      return { lines: [], clear: true };
+    },
+  },
+  whoami: {
+    description: "print username",
+    run() {
+      return { lines: ["xingjobo"] };
+    },
+  },
+  pwd: {
+    description: "print working directory",
+    run(vfs) {
+      return { lines: [vfs.cwd ?? "/home/xingjobo"] };
+    },
+  },
+};
+
+/** @type {readonly string[]} */
+export const COMMAND_NAMES = Object.keys(COMMAND_REGISTRY).sort();
+
+/**
+ * @returns {string}
+ */
+function buildHelpText() {
+  const maxLen = Math.max(...COMMAND_NAMES.map((name) => name.length));
+  const lines = ["Available commands:"];
+
+  for (const name of COMMAND_NAMES) {
+    const entry = COMMAND_REGISTRY[name];
+    lines.push(`  ${name.padEnd(maxLen)} ${entry.description}`);
+  }
+
+  lines.push(
+    "",
+    "Tips:",
+    "  ↑ / ↓       command history",
+    "  Tab         complete command or filename",
+  );
+
+  return lines.join("\n");
+}
 
 /**
  * @param {string} input
@@ -48,22 +96,13 @@ export function runCommand(vfs, input) {
     return { lines: [] };
   }
 
-  switch (command) {
-    case "help":
-      return { lines: [HELP_TEXT] };
-    case "ls":
-      return handleLs(vfs, args);
-    case "cat":
-      return handleCat(vfs, args);
-    case "clear":
-      return { lines: [], clear: true };
-    case "whoami":
-      return { lines: ["xingjobo"] };
-    case "pwd":
-      return { lines: [vfs.cwd ?? "/home/xingjobo"] };
-    default:
-      return { lines: [`sh: ${command}: command not found`] };
+  const entry = COMMAND_REGISTRY[command];
+
+  if (!entry) {
+    return { lines: [`sh: ${command}: command not found`] };
   }
+
+  return entry.run(vfs, args);
 }
 
 /**
