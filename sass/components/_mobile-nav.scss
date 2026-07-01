@@ -23,6 +23,10 @@
     backdrop-filter: blur(10px);
 }
 
+.mobile-nav--open .mobile-nav__bar {
+  z-index: 210;
+}
+
 .mobile-nav__toggle {
     display: inline-flex;
     align-items: center;
@@ -88,15 +92,22 @@
     position: fixed;
     inset: 0;
     z-index: 200;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     padding: $spacing-lg;
     padding-top: calc(3.25rem + #{$spacing-lg});
     background: rgba(0, 0, 0, 0.55);
+    cursor: pointer;
+}
+
+.mobile-nav--open .mobile-nav__overlay {
+    display: flex;
 }
 
 .mobile-nav__panel {
+    cursor: default;
+    pointer-events: auto;
     display: flex;
     flex-direction: column;
     gap: $spacing-xl;

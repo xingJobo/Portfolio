@@ -4,12 +4,14 @@ const nav = document.querySelector("[data-mobile-nav]");
 
 if (nav) {
     const toggle = nav.querySelector("[data-mobile-nav-toggle]");
+    const toggleLabel = nav.querySelector(".mobile-nav__toggle-label");
     const overlay = nav.querySelector("[data-mobile-nav-overlay]");
     const drawer = nav.querySelector("[data-mobile-nav-drawer]");
     const links = nav.querySelectorAll("[data-mobile-nav-link]");
 
     /** @type {HTMLElement | null} */
     let lastFocused = null;
+    let suppressToggleClick = false;
 
     const setOpen = (open) => {
         if (!toggle || !overlay || !drawer) {
@@ -18,8 +20,13 @@ if (nav) {
 
         nav.classList.toggle("mobile-nav--open", open);
         toggle.setAttribute("aria-expanded", open ? "true" : "false");
-        overlay.hidden = !open;
+        toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        overlay.setAttribute("aria-hidden", open ? "false" : "true");
         document.body.classList.toggle("mobile-nav-open", open);
+
+        if (toggleLabel) {
+            toggleLabel.textContent = open ? "Close" : "Menu";
+        }
 
         if (open) {
             lastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
@@ -33,15 +40,37 @@ if (nav) {
         }
     };
 
-    toggle?.addEventListener("click", () => {
+    const closeIfBackdrop = (event) => {
+        if (!nav.classList.contains("mobile-nav--open")) {
+            return;
+        }
+
+        const target = event.target;
+        if (!(target instanceof Node) || drawer.contains(target)) {
+            return;
+        }
+
+        suppressToggleClick = true;
+        setOpen(false);
+        window.setTimeout(() => {
+            suppressToggleClick = false;
+        }, 400);
+    };
+
+    setOpen(false);
+
+    toggle?.addEventListener("click", (event) => {
+        if (suppressToggleClick) {
+            event.preventDefault();
+            suppressToggleClick = false;
+            return;
+        }
+
         setOpen(!nav.classList.contains("mobile-nav--open"));
     });
 
-    overlay?.addEventListener("click", (event) => {
-        if (event.target === overlay) {
-            setOpen(false);
-        }
-    });
+    overlay?.addEventListener("pointerup", closeIfBackdrop);
+    overlay?.addEventListener("click", closeIfBackdrop);
 
     links.forEach((link) => {
         link.addEventListener("click", () => {
