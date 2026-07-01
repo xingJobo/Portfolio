@@ -11,12 +11,55 @@
     })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% if page %}{% if page.title %}{{ page.title }} · {% endif %}{% endif %}{{ config.title }}</title>
-{% if page and page.description %}
-<meta name="description" content="{{ page.description | escape }}">
-{% elif section and section.description %}
-<meta name="description" content="{{ section.description | escape }}">
-{% elif config.description %}
-<meta name="description" content="{{ config.description | escape }}">
+{% set seo = load_data(path="data/seo.yaml") %}
+{% if page and page.title %}
+{% set seo_title = page.title ~ " · " ~ config.title %}
+{% else %}
+{% set seo_title = config.title %}
 {% endif %}
+{% if page and page.description %}
+{% set seo_description = page.description %}
+{% elif section and section.description %}
+{% set seo_description = section.description %}
+{% elif config.description %}
+{% set seo_description = config.description %}
+{% else %}
+{% set seo_description = "" %}
+{% endif %}
+{% if page %}
+{% set seo_url = page.permalink %}
+{% set og_type = "article" %}
+{% elif section %}
+{% set seo_url = section.permalink %}
+{% set og_type = "website" %}
+{% else %}
+{% set seo_url = get_url(path="/") %}
+{% set og_type = "website" %}
+{% endif %}
+{% set site_url = get_url(path="/") %}
+<title>{{ seo_title }}</title>
+{% if seo_description %}
+<meta name="description" content="{{ seo_description | escape }}">
+{% endif %}
+<meta property="og:site_name" content="{{ config.title | escape }}">
+<meta property="og:title" content="{{ seo_title | escape }}">
+{% if seo_description %}
+<meta property="og:description" content="{{ seo_description | escape }}">
+{% endif %}
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:url" content="{{ seo_url | safe }}">
+<meta property="og:locale" content="en">
+{% if seo.og_image %}
+{% set og_image_url = get_url(path=seo.og_image) %}
+<meta property="og:image" content="{{ og_image_url | safe }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{{ og_image_url | safe }}">
+{% else %}
+<meta name="twitter:card" content="summary">
+{% endif %}
+<meta name="twitter:title" content="{{ seo_title | escape }}">
+{% if seo_description %}
+<meta name="twitter:description" content="{{ seo_description | escape }}">
+{% endif %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":{{ config.title | json_encode | safe }},"url":{{ site_url | json_encode | safe }},"jobTitle":{{ seo.person.job_title | json_encode | safe }},"sameAs":{{ seo.person.same_as | json_encode | safe }}}</script>
 <link rel="stylesheet" href="{{ get_url(path='main.css') | safe }}">

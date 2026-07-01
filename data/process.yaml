@@ -11,7 +11,7 @@ timeline:
 steps:
   - number: "01"
     title: Understand - Seeing the big picture
-    summary: Clarify what needs to be build, for whom and what "done" looks like.
+    summary: Clarify what needs to be built, for whom and what "done" looks like.
     bullets:
       - Read the brief and ask questions early
       - Break the task into smaller packages
@@ -23,7 +23,7 @@ steps:
     summary: Implement step by step, test as I move forward and keep the code easy to follow.
     bullets:
       - Small increments. One feature at a time
-      - Verison control and regular commits
+      - Version control and regular commits
       - Test the feature before moving on
     theme: cyan
 
@@ -33,7 +33,6 @@ steps:
     bullets:
       - Demo & hand off to client
       - Notes on setup, decisions made and errors encountered
-      - Demo & hand off to client
     theme: mint
 
 engagement:
@@ -45,4 +44,4 @@ engagement:
       highlight: true
     - text: demo & refine
       highlight: true
-  footnote: Same pattern wether it is a Docker lab, Cooking a meal or building a website.
+  footnote: Same pattern whether it is a Docker lab, Cooking a meal or building a website.

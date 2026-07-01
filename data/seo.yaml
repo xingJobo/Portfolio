@@ -1,0 +1,9 @@
+# SEO metadata — consumed by templates/macros/shell/head.html
+
+person:
+  job_title: Software developer in training
+  same_as:
+    - https://github.com/xingJobo
+
+# Path under static/ for social previews (1200×630 PNG recommended). Uncomment when added.
+# og_image: images/og/og-image.png
