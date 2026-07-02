@@ -1,22 +1,22 @@
 # Welcome text for README.md in fauxsh (see docs/architecture.md).
 
 content: |
-  Welcome dear visitor
-  This portfolio should grant you a peek into my work. My current journey in the field of information technology.
+  Welcome, dear visitor.
+  This portfolio offers a peek into my work and my journey through information technology.
 
-  The purpose of this terminal is to present the portfolio in a familiar manner to developers.
+  This terminal presents the portfolio in a way that feels familiar to developers.
 
   Supported commands:
 
-    ls          lists files in this directory
+    ls          list files in this directory
     cat         read a file
-    help        lists all commands
+    help        list all commands
     clear       clear the screen
 
-  Support utilities:
+  Shortcuts:
 
-    Tab completes commands and filenames.
-    ↑ / ↓ browse history.
+    Tab         complete commands and filenames
+    ↑ / ↓       browse command history
 
   Happy browsing!
 
